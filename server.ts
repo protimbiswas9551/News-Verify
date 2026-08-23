@@ -27,6 +27,68 @@ function getGeminiClient(): GoogleGenAI {
   });
 }
 
+// Helper: Format error messages cleanly
+function formatErrorMessage(error: any): string {
+  if (!error) return 'An unexpected error occurred during verification.';
+  const msg = typeof error === 'string' ? error : error?.message || String(error);
+
+  if (msg.includes('429') || msg.includes('RESOURCE_EXHAUSTED') || msg.includes('quota')) {
+    return 'Gemini API rate limit reached (HTTP 429). The system tried to back off, but quota is temporarily limited. Please wait 15–30 seconds and try again.';
+  }
+
+  try {
+    const jsonStart = msg.indexOf('{');
+    if (jsonStart !== -1) {
+      const parsed = JSON.parse(msg.slice(jsonStart));
+      if (parsed?.error?.message) {
+        return parsed.error.message;
+      }
+    }
+  } catch {}
+
+  return msg;
+}
+
+// Helper: Call Gemini with exponential backoff retry and model fallback on 429
+async function generateGeminiContentWithRetry(ai: GoogleGenAI, params: any, maxRetries = 2) {
+  const modelsToTry = ['gemini-3.7-flash', 'gemini-2.5-flash'];
+  let lastError: any = null;
+
+  for (const model of modelsToTry) {
+    for (let attempt = 0; attempt <= maxRetries; attempt++) {
+      try {
+        const response = await ai.models.generateContent({
+          ...params,
+          model,
+        });
+        return response;
+      } catch (err: any) {
+        lastError = err;
+        const errStr = String(err?.message || err);
+        const isRateLimit = errStr.includes('429') || errStr.includes('RESOURCE_EXHAUSTED') || errStr.includes('quota');
+
+        if (isRateLimit && attempt < maxRetries) {
+          const delay = (attempt + 1) * 2000;
+          console.warn(`[Gemini RateLimit 429 on ${model}] Retrying attempt ${attempt + 1}/${maxRetries} after ${delay}ms...`);
+          await new Promise((resolve) => setTimeout(resolve, delay));
+          continue;
+        }
+
+        // Break inner loop to try fallback model if 429 persisted
+        if (isRateLimit) {
+          console.warn(`[Gemini 429 on ${model}] Trying fallback model...`);
+          break;
+        } else {
+          // If not rate limit error, throw immediately
+          throw err;
+        }
+      }
+    }
+  }
+
+  throw lastError;
+}
+
 // Preset sample claims across multiple categories
 const SAMPLE_CLAIMS = [
   {
@@ -148,33 +210,23 @@ app.post('/api/verify', async (req, res) => {
     const rawInput = text.trim();
     const ai = getGeminiClient();
 
-    // STEP 1: Claim Extraction
-    let claimToAnalyze = rawInput;
-    if (rawInput.length > 120 || url) {
-      try {
-        const extractRes = await ai.models.generateContent({
-          model: 'gemini-3.7-flash',
-          contents: `Extract the single core factual proposition/claim to be verified from the following text or URL summary. Output ONLY that single clear claim sentence:\n\n${rawInput}${url ? `\n\nReference URL: ${url}` : ''}`,
-        });
-        if (extractRes.text && extractRes.text.trim()) {
-          claimToAnalyze = extractRes.text.trim().replace(/^["']|["']$/g, '');
-        }
-      } catch (extractErr) {
-        console.warn('Claim extraction fallback to rawInput:', extractErr);
-      }
-    }
-
-    // STEP 2: Live Web Search (Tavily + Gemini Google Search Grounding)
+    // STEP 1: Live Web Search (Tavily if key configured)
     let tavilyContext = '';
     let tavilySources: any[] = [];
-    const tavilyResults = await fetchTavilySearch(claimToAnalyze, customTavilyKey);
+    const tavilyResults = await fetchTavilySearch(rawInput, customTavilyKey);
 
     if (tavilyResults && tavilyResults.length > 0) {
       tavilySources = tavilyResults.map((r: any) => ({
         title: r.title || 'News Report',
         url: r.url,
         domain_tier: categorizeDomainTier(r.url, r.title),
-        publisher: new URL(r.url).hostname.replace('www.', ''),
+        publisher: (function () {
+          try {
+            return new URL(r.url).hostname.replace('www.', '');
+          } catch {
+            return 'Web Source';
+          }
+        })(),
         snippet: r.content ? r.content.slice(0, 300) : '',
         published_date: r.published_date || undefined,
       }));
@@ -183,35 +235,33 @@ app.post('/api/verify', async (req, res) => {
         tavilyResults.map((r: any, idx: number) => `[Source ${idx + 1}] ${r.title} (${r.url})\n${r.content || ''}`).join('\n\n');
     }
 
-    // STEP 3: Impartial Fact-Checking Synthesis with Gemini
+    // STEP 2: Impartial Fact-Checking Synthesis with Gemini (Single-Pass for low quota usage)
     const systemInstruction = `You are a world-class impartial investigative journalist and senior fact-checker.
 Your duty is to cross-examine claims strictly against current verified web facts, primary documentation, and Tier-1 wire services (Reuters, AP, AFP, BBC, scientific journals, government registries).
 
 CRITICAL DIRECTIVES:
-1. Objectivity: Impartial, balanced, evidence-based reasoning without editorializing or political bias.
-2. Verdict: EXACTLY one of: "True", "False", "Misleading", "Unverifiable".
-3. truth_percentage: A float representing confidence (e.g. 85.5, 0.0, 100.0). Decimals must be rounded to at most ONE decimal place (e.g., 92.4, never 92.400).
-4. reasoning: A clear, concise paragraph explaining the verdict based on current live evidence.
-5. dependency_analysis: A short evaluation of the credibility of sources available (e.g., "Relies heavily on Tier-1 wire services (AP, Reuters) and official government press releases", or "Originates from unverified social media accounts with zero corroboration from mainstream wire services").
-6. sources: List of cited sources with title, url, domain_tier (1 for primary/wire outlets, 2 for mainstream, 3 for unverified blogs/social), and snippet.
-7. key_evidence: 2 to 4 key bullet points, categorized as "supporting", "refuting", or "context".
-8. bias_rating: A short phrase describing the framing or nature of the original claim (e.g., "Factually Accurate", "Decontextualized Rumor", "Fabricated Satire / Hoax", "Partisan Spin", "Preliminary Research").
+1. claim_analyzed: If the user provided a full article or complex text, extract and specify the single core factual proposition being investigated in this field. Otherwise, use the concise claim sentence.
+2. Objectivity: Impartial, balanced, evidence-based reasoning without editorializing or political bias.
+3. verdict: EXACTLY one of: "True", "False", "Misleading", "Unverifiable".
+4. truth_percentage: A float representing confidence (e.g. 85.5, 0.0, 100.0). Decimals must be rounded to at most ONE decimal place (e.g., 92.4, never 92.400).
+5. reasoning: A clear, concise paragraph explaining the verdict based on current live evidence.
+6. dependency_analysis: A short evaluation of the credibility of sources available (e.g., "Relies heavily on Tier-1 wire services (AP, Reuters) and official government press releases", or "Originates from unverified social media accounts with zero corroboration from mainstream wire services").
+7. sources: List of cited sources with title, url, domain_tier (1 for primary/wire outlets, 2 for mainstream, 3 for unverified blogs/social), and snippet.
+8. key_evidence: 2 to 4 key bullet points with "point" (string), "type" ("supporting" | "refuting" | "context"), and optional "source_title".
+9. bias_rating: A short phrase describing the framing or nature of the original claim (e.g., "Factually Accurate", "Decontextualized Rumor", "Fabricated Satire / Hoax", "Partisan Spin", "Preliminary Research").
 
-Output format MUST be valid JSON only.`;
+Output format MUST be valid JSON only matching the schema described.`;
 
-    const prompt = `Claim to Verify: "${claimToAnalyze}"
-
-User Submitted Context / Input:
+    const prompt = `Claim / Article to Verify:
 ${rawInput}
-${url ? `User provided URL: ${url}` : ''}
+${url ? `\nUser provided reference URL: ${url}` : ''}
 
 ${tavilyContext}
 
-Investigate this claim right now using live web grounding and your investigative expertise. Return the structured JSON evaluation.`;
+Investigate this claim right now using live web search grounding and investigative analysis. Extract the single core claim into claim_analyzed and produce the complete fact-checking report as JSON.`;
 
-    // Invoke Gemini with Google Search tool enabled for live web search grounding
-    const response = await ai.models.generateContent({
-      model: 'gemini-3.7-flash',
+    // Invoke Gemini with Google Search tool enabled and retry mechanism
+    const response = await generateGeminiContentWithRetry(ai, {
       contents: prompt,
       config: {
         systemInstruction,
@@ -221,8 +271,12 @@ Investigate this claim right now using live web grounding and your investigative
     });
 
     let rawOutput = response.text || '{}';
-    // Clean potential markdown blocks
+    // Clean potential markdown blocks or wrapper text
     rawOutput = rawOutput.replace(/^```json\s*/i, '').replace(/\s*```$/i, '').trim();
+    const jsonMatch = rawOutput.match(/\{[\s\S]*\}/);
+    if (jsonMatch) {
+      rawOutput = jsonMatch[0];
+    }
 
     let parsedResult: any = {};
     try {
@@ -230,7 +284,7 @@ Investigate this claim right now using live web grounding and your investigative
     } catch (parseErr) {
       console.error('Failed to parse Gemini output:', rawOutput);
       parsedResult = {
-        claim_analyzed: claimToAnalyze,
+        claim_analyzed: rawInput.slice(0, 140),
         verdict: 'Unverifiable',
         truth_percentage: 50.0,
         reasoning: rawOutput || 'Unable to parse verification verdict.',
@@ -308,7 +362,7 @@ Investigate this claim right now using live web grounding and your investigative
     }
 
     const finalResponse = {
-      claim_analyzed: parsedResult.claim_analyzed || claimToAnalyze,
+      claim_analyzed: parsedResult.claim_analyzed || rawInput,
       verdict: finalVerdict,
       truth_percentage: truthPct,
       reasoning: parsedResult.reasoning || 'Investigation completed with current web data.',
@@ -323,8 +377,10 @@ Investigate this claim right now using live web grounding and your investigative
     return res.json(finalResponse);
   } catch (error: any) {
     console.error('Fact checking verification error:', error);
-    return res.status(500).json({
-      error: error?.message || 'An error occurred while verifying the claim.',
+    const formattedError = formatErrorMessage(error);
+    const isRateLimit = String(error).includes('429') || String(error?.message).includes('429') || String(error).includes('RESOURCE_EXHAUSTED');
+    return res.status(isRateLimit ? 429 : 500).json({
+      error: formattedError,
     });
   }
 });

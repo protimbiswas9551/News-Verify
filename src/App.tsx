@@ -86,9 +86,19 @@ export default function App() {
       }, 100);
     } catch (err: any) {
       console.error('Verification error:', err);
-      setErrorMessage(err.message || 'An error occurred while verifying the claim.');
+      let msg = err.message || 'An error occurred while verifying the claim.';
+      if (msg.includes('429') || msg.includes('RESOURCE_EXHAUSTED') || msg.includes('quota')) {
+        msg = 'Gemini API rate limit reached (HTTP 429). The system tried to back off, but quota is temporarily limited. Please wait 15–30 seconds and retry.';
+      }
+      setErrorMessage(msg);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleRetryLast = () => {
+    if (currentClaimText) {
+      handleVerify({ text: currentClaimText });
     }
   };
 
@@ -127,12 +137,25 @@ export default function App() {
 
         {/* Error Alert */}
         {errorMessage && (
-          <div className="p-4 rounded-xl bg-rose-950/30 border border-rose-500/30 text-rose-200 flex items-start space-x-3 text-sm animate-fadeIn shadow-lg">
-            <AlertCircle className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
-            <div className="space-y-1">
-              <span className="font-mono text-xs uppercase tracking-wider font-semibold text-rose-300">Investigation Notice:</span>
-              <p className="text-xs text-rose-200">{errorMessage}</p>
+          <div className="p-4 rounded-xl bg-rose-950/30 border border-rose-500/30 text-rose-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-sm animate-fadeIn shadow-lg">
+            <div className="flex items-start space-x-3">
+              <AlertCircle className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
+              <div className="space-y-1">
+                <span className="font-mono text-xs uppercase tracking-wider font-semibold text-rose-300">Investigation Notice:</span>
+                <p className="text-xs text-rose-200">{errorMessage}</p>
+              </div>
             </div>
+            {currentClaimText && (
+              <button
+                type="button"
+                onClick={handleRetryLast}
+                disabled={isLoading}
+                className="self-start sm:self-auto flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-rose-900/50 hover:bg-rose-800/60 border border-rose-500/40 text-xs font-mono font-semibold text-rose-200 hover:text-white transition cursor-pointer shrink-0"
+              >
+                <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin' : ''}`} />
+                <span>Retry Verification</span>
+              </button>
+            )}
           </div>
         )}
 
