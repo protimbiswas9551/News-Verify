@@ -231,40 +231,42 @@ function formatErrorMessage(error: any): string {
 // Helper: Call Gemini with multi-strategy fallback (models + tools variations)
 async function generateGeminiContentWithRetry(ai: GoogleGenAI, prompt: string, systemInstruction: string) {
   const attempts = [
-    { model: 'gemini-3.7-flash', withSearch: true },
-    { model: 'gemini-3.7-flash', withSearch: false },
-    { model: 'gemini-3.6-flash', withSearch: true },
-    { model: 'gemini-3.6-flash', withSearch: false },
+    { model: 'gemini-3.7-flash', withSearch: true, retries: 2 },
+    { model: 'gemini-3.7-flash', withSearch: false, retries: 2 },
+    { model: 'gemini-3.6-flash', withSearch: true, retries: 1 },
+    { model: 'gemini-3.6-flash', withSearch: false, retries: 2 },
   ];
 
   let lastError: any = null;
 
   for (const config of attempts) {
-    try {
-      const toolConfig = config.withSearch ? [{ googleSearch: {} }] : undefined;
-      const response = await ai.models.generateContent({
-        model: config.model,
-        contents: prompt,
-        config: {
-          systemInstruction,
-          tools: toolConfig,
-          responseMimeType: 'application/json',
-        },
-      });
-      return { response, usedModel: config.model, withSearch: config.withSearch };
-    } catch (err: any) {
-      lastError = err;
-      const errStr = String(err?.message || err);
-      const isRateLimit = errStr.includes('429') || errStr.includes('RESOURCE_EXHAUSTED') || errStr.includes('quota');
-      console.warn(`[Gemini Attempt Failed on ${config.model} (search=${config.withSearch})]:`, isRateLimit ? '429 Rate Limit' : errStr);
+    for (let attempt = 0; attempt <= config.retries; attempt++) {
+      try {
+        const toolConfig = config.withSearch ? [{ googleSearch: {} }] : undefined;
+        const response = await ai.models.generateContent({
+          model: config.model,
+          contents: prompt,
+          config: {
+            systemInstruction,
+            tools: toolConfig,
+            responseMimeType: 'application/json',
+          },
+        });
+        return { response, usedModel: config.model, withSearch: config.withSearch };
+      } catch (err: any) {
+        lastError = err;
+        const errStr = String(err?.message || err);
+        const isRateLimit = errStr.includes('429') || errStr.includes('RESOURCE_EXHAUSTED') || errStr.includes('quota');
+        const isHighDemand = errStr.includes('503') || errStr.includes('UNAVAILABLE') || errStr.includes('high demand');
 
-      if (isRateLimit) {
-        // Quick pause before next fallback strategy
-        await new Promise((r) => setTimeout(r, 600));
-        continue;
-      } else {
-        // Non-rate limit error, try next model
-        continue;
+        if ((isHighDemand || isRateLimit) && attempt < config.retries) {
+          const delay = (attempt + 1) * 1200;
+          await new Promise((r) => setTimeout(r, delay));
+          continue;
+        }
+
+        // If rate limit or high demand, move to next strategy in attempts list
+        break;
       }
     }
   }
@@ -511,7 +513,7 @@ Investigate this claim right now using live web search grounding and investigati
         }
       }
     } catch (genErr: any) {
-      console.warn('Gemini generation encountered rate-limits/error. Falling back to wire knowledge base synthesis:', genErr);
+      console.log('Gemini generation fallback engaged: activating wire OSINT knowledge synthesis.');
 
       // Check if text has keyword matches in known factual domains
       let matchedPreset: any = null;
