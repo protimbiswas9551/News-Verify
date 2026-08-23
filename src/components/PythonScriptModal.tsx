@@ -85,7 +85,7 @@ export const PythonScriptModal: React.FC<PythonScriptModalProps> = ({ isOpen, on
         {/* Footer */}
         <div className="px-6 py-4 border-t border-white/10 bg-[#0A0A0C] flex items-center justify-between">
           <span className="text-xs text-slate-500 font-mono">
-            Uses Google Gemini 2.5/3.7 Flash SDK + Tavily Web Search API
+            Uses Google Gemini 3.6/3.7 Flash SDK + Tavily Web Search API
           </span>
 
           <div className="flex items-center space-x-3">

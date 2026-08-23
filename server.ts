@@ -51,7 +51,7 @@ function formatErrorMessage(error: any): string {
 
 // Helper: Call Gemini with exponential backoff retry and model fallback on 429
 async function generateGeminiContentWithRetry(ai: GoogleGenAI, params: any, maxRetries = 2) {
-  const modelsToTry = ['gemini-3.7-flash', 'gemini-2.5-flash'];
+  const modelsToTry = ['gemini-3.7-flash', 'gemini-3.6-flash'];
   let lastError: any = null;
 
   for (const model of modelsToTry) {

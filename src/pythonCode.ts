@@ -3,7 +3,7 @@
 export const STREAMLIT_APP_LINES = [
   '"""',
   'News Verification and Fact-Checking Dashboard',
-  'Tech Stack: Streamlit, Google Gemini API (gemini-2.5-flash / gemini-3.7-flash), Tavily AI API',
+  'Tech Stack: Streamlit, Google Gemini API (gemini-3.6-flash / gemini-3.7-flash), Tavily AI API',
   '"""',
   '',
   'import os',
@@ -141,7 +141,7 @@ export const STREAMLIT_APP_LINES = [
   '    synthesis_prompt = f"Claim to Verify: \\"{extracted_claim}\\"\\n\\nOriginal Input:\\n{raw_input}\\n{tavily_context}\\n\\nVerify this claim now using live web search and return structured JSON."',
   '',
   '    response = ai_client.models.generateContent(',
-  '        model="gemini-2.5-flash",',
+  '        model="gemini-3.7-flash",',
   '        contents=synthesis_prompt,',
   '        config=types.GenerateContentConfig(',
   '            system_instruction=system_instruction,',
