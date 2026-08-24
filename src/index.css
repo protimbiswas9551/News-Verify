@@ -16,7 +16,21 @@
 
 /* Authentic Newspaper Typography */
 .font-masthead {
-  font-family: 'Cinzel Decorative', 'Playfair Display', Georgia, serif;
+  font-family: 'UnifrakturCook', 'Grenze Gotisch', 'UnifrakturMaguntia', 'MedievalSharp', 'Old English Text MT', 'Cloister Black', 'Engravers Old English', Georgia, serif;
+}
+
+.font-masthead-black,
+.font-black-condensed,
+.font-medieval {
+  font-family: 'UnifrakturCook', 'Grenze Gotisch', 'UnifrakturMaguntia', 'MedievalSharp', 'Old English Text MT', 'Cloister Black', 'Engravers Old English', Georgia, serif;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.font-gothic-condensed {
+  font-family: 'Grenze Gotisch', 'UnifrakturCook', 'UnifrakturMaguntia', serif;
+  font-weight: 900;
+  letter-spacing: -0.02em;
 }
 
 .font-headline {

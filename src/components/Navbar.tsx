@@ -12,11 +12,23 @@ export const Navbar: React.FC<NavbarProps> = ({
 }) => {
   return (
     <header className="w-full bg-[#fdfbf7] border-b-2 border-[#1c1917] shadow-sm">
-      {/* Top Masthead Title matching the photo */}
-      <div className="border-b-2 border-[#1c1917] py-2.5 px-4 text-center bg-[#f7f1e1]">
-        <h1 className="font-headline font-black text-2xl sm:text-3xl md:text-4xl tracking-wider text-[#1c1917] uppercase">
-          SAHIKYA — FACT-CHECKING & NEWS VERIFICATION DAILY
-        </h1>
+      {/* Top Medieval 72-Point Black Condensed Masthead Title */}
+      <div className="border-b-2 border-[#1c1917] py-3 sm:py-4 px-4 text-center bg-[#f7f1e1] relative overflow-hidden">
+        {/* Subtle vintage newspaper issue dateline bar above */}
+        <div className="max-w-6xl mx-auto flex items-center justify-between text-[10px] sm:text-xs font-typewriter text-[#57534e] border-b border-[#1c1917]/20 pb-1 mb-1 px-2 uppercase tracking-widest">
+          <span className="hidden sm:inline">VOL. CXXVIII • NO. 44,102</span>
+          <span className="font-bold text-[#1c1917]">THE IMPARTIAL TRUTH & FACT-CHECKING GAZETTE</span>
+          <span className="hidden sm:inline">LATE CITY EDITION • PRICE TWO CENTS</span>
+        </div>
+
+        {/* Huge 72-Point Authentic Medieval Blackletter / Gothic Masthead */}
+        <div className="flex items-center justify-center space-x-3 sm:space-x-8 py-1">
+          <span className="hidden sm:inline font-serif text-3xl lg:text-4xl text-[#78350f] select-none opacity-80">❧</span>
+          <h1 className="font-medieval text-6xl sm:text-7xl md:text-8xl lg:text-9xl tracking-normal text-[#1c1917] leading-none select-none drop-shadow-[2px_3px_0px_rgba(40,30,20,0.3)]">
+            SahiKya
+          </h1>
+          <span className="hidden sm:inline font-serif text-3xl lg:text-4xl text-[#78350f] select-none opacity-80">☙</span>
+        </div>
       </div>
 
       {/* Sub-bar with pills & actions like the photo */}
