@@ -246,7 +246,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center space-x-2 font-typewriter text-[11px] text-[#1c1917]">
             <Newspaper className="w-4 h-4" />
-            <span className="font-bold uppercase tracking-wider">The Daily Verifier Press</span>
+            <span className="font-bold uppercase tracking-wider">SahiKya Press</span>
             <span className="text-[#a8a29e]">•</span>
             <span>Gemini 3.7 & Real-Time Google Search Grounding</span>
           </div>

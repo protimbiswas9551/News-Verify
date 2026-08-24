@@ -133,7 +133,7 @@ export const FactCheckBulletin: React.FC<FactCheckBulletinProps> = ({
 
       {/* Bulletin Footer */}
       <div className="pt-3 border-t-2 border-[#1c1917] text-center text-[10px] font-typewriter text-[#57534e]">
-        <span>❧ Archived by The Daily Verifier Desk</span>
+        <span>❧ Archived by SahiKya Desk</span>
       </div>
     </div>
   );

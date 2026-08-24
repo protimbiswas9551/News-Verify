@@ -23,7 +23,7 @@ export const HowItWorksModal: React.FC<HowItWorksModalProps> = ({ isOpen, onClos
                 Editorial Code & Verification Methodology
               </h2>
               <p className="font-typewriter text-xs text-[#57534e]">
-                The Daily Verifier's Wire Corroboration & Truth Classification Charter
+                SahiKya's Wire Corroboration & Truth Classification Charter
               </p>
             </div>
           </div>

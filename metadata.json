@@ -1,5 +1,5 @@
 {
-  "name": "The Daily Verifier — Fact-Checking Gazette",
+  "name": "SahiKya",
   "description": "Authentic newspaper broadsheet news verification, claim extraction, and fact-checking dashboard powered by Gemini and live web search data.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]

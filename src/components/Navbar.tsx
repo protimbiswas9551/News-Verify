@@ -13,20 +13,20 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <header className="w-full bg-[#fdfbf7] border-b-2 border-[#1c1917] shadow-sm">
       {/* Top Masthead Title matching the photo */}
-      <div className="border-b-2 border-[#1c1917] py-2 px-4 text-center bg-[#f7f1e1]">
-        <h1 className="font-headline font-black text-xl sm:text-2xl md:text-3xl tracking-wider text-[#1c1917] uppercase">
-          THE NEWS VERIFICATION & FACT-CHECKING DAILY
+      <div className="border-b-2 border-[#1c1917] py-2.5 px-4 text-center bg-[#f7f1e1]">
+        <h1 className="font-headline font-black text-2xl sm:text-3xl md:text-4xl tracking-wider text-[#1c1917] uppercase">
+          SAHIKYA — FACT-CHECKING & NEWS VERIFICATION DAILY
         </h1>
       </div>
 
       {/* Sub-bar with pills & actions like the photo */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-wrap items-center justify-between gap-2.5">
-        {/* Left: VerifyNews Badge */}
+        {/* Left: SahiKya Badge */}
         <div className="flex items-center space-x-2 px-2.5 py-1 bg-[#f4eee1] border border-[#1c1917] font-typewriter text-xs text-[#1c1917] shadow-[1px_1px_0px_#1c1917]">
           <div className="w-4 h-4 rounded-full bg-[#1c1917] text-[#fdfbf7] flex items-center justify-center font-bold text-[9px]">
-            V
+            S
           </div>
-          <span className="font-bold">• VERIFY_NEWS</span>
+          <span className="font-bold">• SAHIKYA</span>
           <span className="text-[10px] px-1 py-0.2 bg-[#1c1917] text-white font-mono">v2.4.0</span>
           <span className="hidden md:inline text-[#57534e]">IMPARTIAL TRUTH & FACT-CHECKING ENGINE</span>
         </div>
