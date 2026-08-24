@@ -11,6 +11,7 @@ import { ExportModal } from './components/ExportModal';
 import { HowItWorksModal } from './components/HowItWorksModal';
 import { HistoryDrawer } from './components/HistoryDrawer';
 import { NewspaperTextureOverlay } from './components/NewspaperTextureOverlay';
+import { PrintingPressEffect } from './components/PrintingPressEffect';
 import { FactCheckResult, SampleClaim } from './types';
 import { AlertTriangle, Newspaper, Radio, RefreshCw } from 'lucide-react';
 
@@ -185,21 +186,25 @@ export default function App() {
 
             {/* Detailed Results Section */}
             {result && !isLoading && (
-              <div id="verification-results" className="space-y-6 animate-fadeIn pt-2">
-                {/* Primary Editorial Verdict Stamp & Reasoning Column */}
-                <VerdictDisplay
-                  result={result}
-                  onExportMarkdown={() => setIsExportModalOpen(true)}
-                  onExportJSON={() => setIsExportModalOpen(true)}
-                />
+              <div id="verification-results" className="pt-2">
+                <PrintingPressEffect triggerKey={result.id || result.timestamp || result.claim_analyzed}>
+                  <div className="space-y-6">
+                    {/* Primary Editorial Verdict Stamp & Reasoning Column */}
+                    <VerdictDisplay
+                      result={result}
+                      onExportMarkdown={() => setIsExportModalOpen(true)}
+                      onExportJSON={() => setIsExportModalOpen(true)}
+                    />
 
-                {/* Key Evidence Exhibits */}
-                {result.key_evidence && result.key_evidence.length > 0 && (
-                  <EvidenceSection evidenceList={result.key_evidence} />
-                )}
+                    {/* Key Evidence Exhibits */}
+                    {result.key_evidence && result.key_evidence.length > 0 && (
+                      <EvidenceSection evidenceList={result.key_evidence} />
+                    )}
 
-                {/* Sources & Citations Classifieds */}
-                <SourcesGrid sources={result.sources} />
+                    {/* Sources & Citations Classifieds */}
+                    <SourcesGrid sources={result.sources} />
+                  </div>
+                </PrintingPressEffect>
               </div>
             )}
           </div>
