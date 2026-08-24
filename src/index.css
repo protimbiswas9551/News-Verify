@@ -14,17 +14,14 @@
   }
 }
 
-/* Authentic Newspaper Typography */
-.font-masthead {
-  font-family: 'UnifrakturCook', 'Grenze Gotisch', 'UnifrakturMaguntia', 'MedievalSharp', 'Old English Text MT', 'Cloister Black', 'Engravers Old English', Georgia, serif;
-}
-
+/* Authentic Medieval Old English / Cloister Black / Blackletter Typography matching the photo */
+.font-masthead,
 .font-masthead-black,
 .font-black-condensed,
 .font-medieval {
-  font-family: 'UnifrakturCook', 'Grenze Gotisch', 'UnifrakturMaguntia', 'MedievalSharp', 'Old English Text MT', 'Cloister Black', 'Engravers Old English', Georgia, serif;
-  font-weight: 700;
-  letter-spacing: 0.02em;
+  font-family: 'Old English Text MT', 'Old English Text', 'Cloister Black', 'Chomsky', 'Old London', 'Engravers Old English', 'UnifrakturMaguntia', 'UnifrakturCook', Georgia, serif;
+  font-weight: normal;
+  letter-spacing: 0.01em;
 }
 
 .font-gothic-condensed {

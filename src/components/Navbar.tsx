@@ -21,11 +21,11 @@ export const Navbar: React.FC<NavbarProps> = ({
           <span className="hidden sm:inline">LATE CITY EDITION • PRICE TWO CENTS</span>
         </div>
 
-        {/* Huge 72-Point Authentic Medieval Blackletter / Gothic Masthead */}
+        {/* Huge 72-Point Authentic Old English / Blackletter Masthead matching photo */}
         <div className="flex items-center justify-center space-x-3 sm:space-x-8 py-1">
           <span className="hidden sm:inline font-serif text-3xl lg:text-4xl text-[#78350f] select-none opacity-80">❧</span>
-          <h1 className="font-medieval text-6xl sm:text-7xl md:text-8xl lg:text-9xl tracking-normal text-[#1c1917] leading-none select-none drop-shadow-[2px_3px_0px_rgba(40,30,20,0.3)]">
-            SahiKya
+          <h1 className="font-medieval text-6xl sm:text-7xl md:text-8xl lg:text-9xl tracking-tight text-[#1c1917] leading-none select-none drop-shadow-[2px_3px_0px_rgba(40,30,20,0.3)]">
+            Sahikya
           </h1>
           <span className="hidden sm:inline font-serif text-3xl lg:text-4xl text-[#78350f] select-none opacity-80">☙</span>
         </div>
