@@ -7,12 +7,12 @@ import {
   HelpCircle,
   Shield,
   Layers,
-  Sparkles,
-  Share2,
   Download,
   Copy,
   Check,
-  Award
+  Award,
+  Feather,
+  BookOpen
 } from 'lucide-react';
 
 interface VerdictDisplayProps {
@@ -33,43 +33,43 @@ export const VerdictDisplay: React.FC<VerdictDisplayProps> = ({
       case 'True':
         return {
           stampClass: 'verdict-stamp-true',
-          badgeBg: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30',
-          accentColor: '#10b981',
-          progressColor: 'bg-emerald-500',
+          badgeText: 'OFFICIALLY VERIFIED • AUTHENTIC RECORD',
+          stampColor: 'text-[#166534]',
+          barColor: 'bg-[#166534]',
           icon: CheckCircle2,
-          headline: 'VERIFIED TRUE',
-          subtitle: 'Corroborated by primary documentation and Tier-1 wire reporting.',
+          headline: 'CONFIRMED ACCURATE',
+          subtitle: 'Corroborated by primary institutional documentation and Tier-1 wire reporting.',
         };
       case 'False':
         return {
           stampClass: 'verdict-stamp-false',
-          badgeBg: 'bg-rose-500/10 text-rose-400 border-rose-500/30',
-          accentColor: '#f43f5e',
-          progressColor: 'bg-rose-500',
+          badgeText: 'FABRICATED • REFUTED BY EVIDENCE',
+          stampColor: 'text-[#991b1b]',
+          barColor: 'bg-[#991b1b]',
           icon: XCircle,
-          headline: 'VERIFIED FALSE',
-          subtitle: 'Directly contradicted by empirical data, official sources, and fact-checking records.',
+          headline: 'REFUTED FALSEHOOD',
+          subtitle: 'Directly contradicted by empirical data, official records, and verified eyewitness reporting.',
         };
       case 'Misleading':
         return {
           stampClass: 'verdict-stamp-misleading',
-          badgeBg: 'bg-amber-500/10 text-amber-400 border-amber-500/30',
-          accentColor: '#f59e0b',
-          progressColor: 'bg-amber-500',
+          badgeText: 'DECONTEXTUALIZED • SKEWED FRAMING',
+          stampColor: 'text-[#b45309]',
+          barColor: 'bg-[#b45309]',
           icon: AlertTriangle,
-          headline: 'MISLEADING / DECONTEXTUALIZED',
-          subtitle: 'Contains a grain of truth but distorts timeline, causation, or key caveats.',
+          headline: 'MISLEADING CONTEXT',
+          subtitle: 'Contains a grain of truth but distorts timeline, causation, or key omissions.',
         };
       case 'Unverifiable':
       default:
         return {
           stampClass: 'verdict-stamp-unverifiable',
-          badgeBg: 'bg-slate-500/10 text-slate-400 border-slate-500/30',
-          accentColor: '#94a3b8',
-          progressColor: 'bg-slate-500',
+          badgeText: 'INSUFFICIENT PRIMARY PROOF',
+          stampColor: 'text-[#44403c]',
+          barColor: 'bg-[#44403c]',
           icon: HelpCircle,
-          headline: 'UNVERIFIABLE',
-          subtitle: 'Insufficient primary evidence or conflicting unverifiable accounts at this time.',
+          headline: 'UNVERIFIABLE WIRE',
+          subtitle: 'Insufficient primary evidence or conflicting accounts at this time.',
         };
     }
   };
@@ -79,29 +79,29 @@ export const VerdictDisplay: React.FC<VerdictDisplayProps> = ({
   const truthPct = typeof result.truth_percentage === 'number' ? result.truth_percentage.toFixed(1) : '50.0';
 
   const handleCopySummary = () => {
-    const text = `🔍 Fact-Check Verdict: ${result.verdict.toUpperCase()} (${truthPct}% Confidence)\n\nClaim: "${result.claim_analyzed}"\n\nReasoning: ${result.reasoning}\n\nDependency Analysis: ${result.dependency_analysis}`;
+    const text = `📰 THE DAILY VERIFIER — FACT-CHECK DOSSIER\nVerdict: ${result.verdict.toUpperCase()} (${truthPct}% Confidence)\n\nClaim: "${result.claim_analyzed}"\n\nEditorial Reasoning: ${result.reasoning}\n\nDependency Analysis: ${result.dependency_analysis}`;
     navigator.clipboard.writeText(text);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
   return (
-    <div className="w-full rounded-2xl bg-[#121214] border border-white/10 p-6 sm:p-8 text-white space-y-6 shadow-2xl animate-fadeIn">
-      {/* Top Bar: Analyzed Header & Quick Actions */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-white/5">
+    <div className="newsprint-paper p-6 sm:p-8 text-[#1c1917] space-y-6 animate-fadeIn">
+      {/* Top Editorial Dateline Bar */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b-2 border-[#1c1917]">
         <div>
           <div className="flex items-center space-x-2">
-            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-slate-400">
-              Investigation Report
+            <span className="font-typewriter text-xs font-bold uppercase tracking-wider text-[#1c1917]">
+              Special Investigative Report
             </span>
             {result.bias_rating && (
-              <span className="px-2 py-0.5 text-[10px] font-mono font-semibold bg-[#1a1a1e] text-slate-300 rounded border border-white/10">
-                {result.bias_rating}
+              <span className="px-2 py-0.5 text-[10px] font-typewriter font-bold bg-[#f4eee1] text-[#1c1917] border border-[#1c1917]">
+                Framing: {result.bias_rating}
               </span>
             )}
           </div>
-          <p className="text-xs text-slate-400 mt-0.5">
-            Cross-referenced with live web citations • {result.search_method_used || 'Google Search Grounding'}
+          <p className="font-typewriter text-xs text-[#57534e] mt-0.5">
+            Wire Cross-Examination • {result.search_method_used || 'Google Search Grounding Wire'}
           </p>
         </div>
 
@@ -109,126 +109,134 @@ export const VerdictDisplay: React.FC<VerdictDisplayProps> = ({
           <button
             id="btn-copy-summary"
             onClick={handleCopySummary}
-            className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-[#1a1a1e] hover:bg-[#222228] border border-white/10 text-xs font-mono text-slate-300 hover:text-white transition"
+            className="flex items-center space-x-1.5 px-3 py-1.5 bg-[#fcf9f2] hover:bg-[#efe6d5] border border-[#1c1917] text-xs font-typewriter font-bold text-[#1c1917] transition shadow-[2px_2px_0px_#1c1917] cursor-pointer"
             title="Copy concise verdict text"
           >
-            {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-            <span>{copied ? 'Copied' : 'Copy'}</span>
+            {copied ? <Check className="w-3.5 h-3.5 text-[#166534]" /> : <Copy className="w-3.5 h-3.5" />}
+            <span>{copied ? 'Copied' : 'Copy Dossier'}</span>
           </button>
 
           <button
             id="btn-export-markdown"
             onClick={onExportMarkdown}
-            className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-[#1a1a1e] hover:bg-[#222228] border border-white/10 text-xs font-mono text-slate-300 hover:text-white transition"
+            className="flex items-center space-x-1.5 px-3 py-1.5 bg-[#1c1917] hover:bg-[#292524] text-[#fdfbf7] text-xs font-typewriter font-bold transition shadow-[2px_2px_0px_#78716c] cursor-pointer"
           >
             <Download className="w-3.5 h-3.5" />
-            <span>Export Report</span>
+            <span>Export Gazette</span>
           </button>
         </div>
       </div>
 
-      {/* Claim Analysed Box */}
-      <div className="p-4 rounded-xl bg-[#0A0A0C] border border-white/5 shadow-inner">
-        <div className="flex items-center space-x-2 text-[11px] font-mono font-semibold text-blue-400 mb-1.5 uppercase tracking-wider">
-          <Sparkles className="w-3.5 h-3.5" />
-          <span>Core Claim Analyzed</span>
-        </div>
-        <p className="text-base sm:text-lg font-medium text-slate-100 leading-relaxed">
+      {/* Core Claim Lead Quote */}
+      <div className="newsprint-inset p-5 text-center space-y-1">
+        <span className="font-typewriter text-[10px] uppercase font-bold tracking-widest text-[#78716c]">
+          — THE INVESTIGATED CLAIM UNDER SCRUTINY —
+        </span>
+        <blockquote className="font-headline text-lg sm:text-2xl font-bold text-[#1c1917] leading-snug italic max-w-4xl mx-auto">
           "{result.claim_analyzed}"
-        </p>
+        </blockquote>
       </div>
 
-      {/* Main Verdict & Truth Percentage Skeuomorphic Grid */}
+      {/* Main Rubber Stamp & Confidence Meter Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left 2 Cols: Big Skeuomorphic Stamp */}
-        <div className={`lg:col-span-2 p-6 rounded-2xl ${theme.stampClass} flex flex-col justify-between transition-all duration-300`}>
+        {/* Left 2 Cols: The Grand Editorial Rubber Stamp */}
+        <div className={`lg:col-span-2 p-6 sm:p-7 ${theme.stampClass} flex flex-col justify-between transition-all duration-300`}>
           <div>
-            <div className="flex items-center justify-between">
-              <span className="text-[10px] font-mono font-bold uppercase tracking-widest opacity-80">
-                Official Investigative Verdict
+            <div className="flex items-center justify-between border-b border-current pb-2 mb-3">
+              <span className="font-typewriter text-[11px] font-bold uppercase tracking-widest opacity-90">
+                Official Gazette Verdict
               </span>
-              <div className="p-1.5 rounded-lg bg-black/20 backdrop-blur-sm border border-white/10">
-                <VerdictIcon className="w-6 h-6" />
-              </div>
+              <span className="stamp-badge text-xs">
+                {theme.badgeText}
+              </span>
             </div>
 
-            <div className="mt-4 mb-2">
-              <h2 className="text-3xl sm:text-4xl font-black tracking-tight">
-                {theme.headline}
-              </h2>
-              <p className="text-sm opacity-90 mt-1 max-w-xl leading-relaxed">
+            <div className="my-3">
+              <div className="flex items-center space-x-3">
+                <VerdictIcon className="w-8 h-8 sm:w-10 sm:h-10 shrink-0" />
+                <h2 className="font-headline text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight uppercase">
+                  {theme.headline}
+                </h2>
+              </div>
+              <p className="font-body-news text-base sm:text-lg opacity-90 mt-2 leading-relaxed">
                 {theme.subtitle}
               </p>
             </div>
           </div>
 
-          <div className="mt-6 pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
-            <span className="opacity-75">Classification: {result.verdict}</span>
-            <span className="font-semibold px-2.5 py-0.5 rounded-full bg-black/30 border border-white/10">
-              Confidence: {truthPct}%
+          <div className="mt-4 pt-3 border-t border-current flex flex-wrap items-center justify-between gap-2 font-typewriter text-xs font-bold">
+            <span>VERDICT CLASSIFICATION: {result.verdict.toUpperCase()}</span>
+            <span className="px-2 py-0.5 border border-current bg-white/50">
+              TRUTH CONFIDENCE: {truthPct}%
             </span>
           </div>
         </div>
 
-        {/* Right Col: Truth Gauge & Metric Widget */}
-        <div className="p-6 rounded-2xl bg-[#16161a] border border-white/5 flex flex-col justify-between shadow-xl">
+        {/* Right Col: The Newspaper Truth Barometer */}
+        <div className="newsprint-card p-6 flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between text-[11px] font-mono font-semibold text-slate-400 mb-4 tracking-wider">
-              <span>TRUTH CONFIDENCE</span>
-              <Award className="w-4 h-4 text-blue-400" />
+            <div className="flex items-center justify-between font-typewriter text-xs font-bold text-[#1c1917] pb-2 border-b border-[#1c1917] mb-3">
+              <span className="uppercase tracking-wider">TRUTH BAROMETER</span>
+              <Award className="w-4 h-4 text-[#1c1917]" />
             </div>
 
-            <div className="flex items-baseline space-x-2">
-              <span className="text-4xl sm:text-5xl font-mono font-black text-white tracking-tight">
+            <div className="text-center my-3">
+              <span className="font-headline font-black text-5xl sm:text-6xl text-[#1c1917]">
                 {truthPct}
               </span>
-              <span className="text-xl font-mono font-bold text-slate-400">%</span>
+              <span className="font-typewriter text-2xl font-bold text-[#78716c] ml-1">%</span>
+              <p className="font-typewriter text-[11px] text-[#57534e] mt-1">
+                Empirical Probability Rating
+              </p>
             </div>
 
-            {/* Visual Progress Bar */}
-            <div className="mt-4 w-full bg-[#0A0A0C] h-3 rounded-full overflow-hidden border border-white/5 p-0.5">
+            {/* Vintage Inked Bar */}
+            <div className="w-full bg-[#e7e5e4] h-4 border-2 border-[#1c1917] p-0.5">
               <div
-                className={`h-full rounded-full transition-all duration-1000 ${theme.progressColor}`}
+                className={`h-full transition-all duration-1000 ${theme.barColor}`}
                 style={{ width: `${Math.min(Math.max(Number(truthPct), 3), 100)}%` }}
               />
             </div>
 
-            <div className="flex justify-between text-[10px] text-slate-500 font-mono mt-2">
-              <span>0% (Refuted)</span>
-              <span>50% (Uncertain)</span>
-              <span>100% (Confirmed)</span>
+            <div className="flex justify-between text-[10px] text-[#78716c] font-typewriter mt-1.5 font-semibold">
+              <span>0% Refuted</span>
+              <span>50% Split</span>
+              <span>100% Verified</span>
             </div>
           </div>
 
-          <div className="mt-6 pt-4 border-t border-white/5">
-            <div className="text-[11px] text-slate-400">
-              Corroboration Score based on wire service consensus and empirical records.
-            </div>
+          <div className="mt-4 pt-3 border-t border-[#78716c]/30 font-body-news text-xs text-[#57534e] italic">
+            Calibrated against institutional wire consensus and primary sources.
           </div>
         </div>
       </div>
 
-      {/* Impartial Reasoning */}
-      <div className="p-5 sm:p-6 rounded-xl bg-[#0A0A0C] border border-white/5 space-y-2 shadow-inner">
-        <div className="flex items-center space-x-2 text-[11px] font-mono font-semibold text-slate-300 uppercase tracking-wider">
-          <Shield className="w-4 h-4 text-blue-400" />
-          <span>Investigative Reasoning & Evidence Summary</span>
+      {/* Editorial Reasoning Article Column with Drop-Cap */}
+      <div className="newsprint-card p-6 sm:p-8 space-y-3">
+        <div className="flex items-center space-x-2 pb-2 border-b-2 border-[#1c1917]">
+          <Feather className="w-4 h-4 text-[#1c1917]" />
+          <h3 className="font-headline font-bold text-sm sm:text-base uppercase tracking-wider text-[#1c1917]">
+            Editorial Board Reasoning & Investigative Synthesis
+          </h3>
         </div>
-        <p className="text-sm sm:text-base text-slate-200 leading-relaxed">
-          {result.reasoning}
-        </p>
+        
+        <div className="pt-2">
+          <p className="news-dropcap font-body-news text-base sm:text-lg text-[#292524] leading-relaxed text-justify">
+            {result.reasoning}
+          </p>
+        </div>
       </div>
 
-      {/* Dependency Analysis */}
-      <div className="p-4 sm:p-5 rounded-xl bg-[#0A0A0C] border border-white/5 flex items-start space-x-3 shadow-inner">
-        <div className="p-2 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20 shrink-0 mt-0.5">
+      {/* Source Dependency & Editorial Footnote */}
+      <div className="newsprint-inset p-4 sm:p-5 flex items-start space-x-3">
+        <div className="p-2 border border-[#1c1917] bg-[#fdfbf7] text-[#1c1917] shrink-0 mt-0.5">
           <Layers className="w-4 h-4" />
         </div>
         <div className="space-y-1">
-          <h4 className="text-[11px] font-mono font-bold text-slate-200 uppercase tracking-wide">
-            Source Dependency & Credibility Evaluation
+          <h4 className="font-typewriter text-xs font-bold text-[#1c1917] uppercase tracking-wide">
+            Source Dependency & Attributive Reliability Note
           </h4>
-          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+          <p className="font-body-news text-sm text-[#44403c] leading-relaxed">
             {result.dependency_analysis}
           </p>
         </div>
@@ -236,3 +244,4 @@ export const VerdictDisplay: React.FC<VerdictDisplayProps> = ({
     </div>
   );
 };
+

@@ -10,7 +10,7 @@ import { ExportModal } from './components/ExportModal';
 import { HowItWorksModal } from './components/HowItWorksModal';
 import { HistoryDrawer } from './components/HistoryDrawer';
 import { FactCheckResult, SampleClaim } from './types';
-import { AlertCircle, Sparkles, ShieldCheck, Newspaper, RefreshCw } from 'lucide-react';
+import { AlertTriangle, Newspaper, Radio, RefreshCw, Feather, CheckCircle2 } from 'lucide-react';
 
 export default function App() {
   const [result, setResult] = useState<FactCheckResult | null>(null);
@@ -88,7 +88,7 @@ export default function App() {
       console.error('Verification error:', err);
       let msg = err.message || 'An error occurred while verifying the claim.';
       if (msg.includes('429') || msg.includes('RESOURCE_EXHAUSTED') || msg.includes('quota')) {
-        msg = 'Gemini API rate limit reached (HTTP 429). The system tried to back off, but quota is temporarily limited. Please wait 15–30 seconds and retry.';
+        msg = 'Wire service quota limit reached (HTTP 429). The system tried to back off, but quota is temporarily limited. Please wait 15–30 seconds and retry.';
       }
       setErrorMessage(msg);
     } finally {
@@ -110,39 +110,70 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0A0C] text-slate-200 flex flex-col selection:bg-blue-600 selection:text-white">
+    <div className="min-h-screen bg-[#f4eee1] text-[#1c1917] flex flex-col selection:bg-[#1c1917] selection:text-[#fdfbf7]">
       {/* Top Navigation */}
       <Navbar
         onOpenPythonModal={() => setIsPythonModalOpen(true)}
         onOpenInfoModal={() => setIsHowItWorksOpen(true)}
       />
 
-      {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-        {/* Newsroom Header */}
-        <div className="space-y-3">
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-mono font-semibold">
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse shadow-[0_0_6px_rgba(96,165,250,0.8)]" />
-            <span>AI OSINT & FACT-CHECKING PLATFORM</span>
+      {/* Retro Wire Ticker Tape */}
+      <div className="w-full bg-[#1c1917] text-[#f5f5f4] border-b border-[#44403c] py-1.5 overflow-hidden">
+        <div className="ticker-wrap max-w-7xl mx-auto px-4 text-xs font-typewriter tracking-wide flex items-center">
+          <div className="flex items-center space-x-2 shrink-0 bg-[#b91c1c] text-white px-2 py-0.5 mr-3 uppercase font-bold text-[10px]">
+            <Radio className="w-3 h-3 animate-pulse" />
+            <span>WIRE TICKER</span>
+          </div>
+          <div className="ticker-move space-x-8 text-[#e7e5e4] text-[11px]">
+            <span>◆ REUTERS CABLE: Global AI Verification Protocol Adopted By 40 Editorial Desks</span>
+            <span>◆ AP BULLETIN: Exoplanet Atmosphere Water Vapor Confirmed By Orbital Spectrometry</span>
+            <span>◆ FINANCIAL GAZETTE: Gold Bullion Crosses Historic Highs Amid Central Bank Accumulation</span>
+            <span>◆ HEALTH CHRONICLE: Peer-Reviewed Lancet Meta-Analysis Disproves Viral Superfood Myth</span>
+            <span>◆ TELETYPE NOTICE: Cross-Reference Your Rumors Against Primary Institutional Records</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Newspaper Broadsheet Sheet */}
+      <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+        {/* Authentic Newspaper Masthead Banner */}
+        <div className="newsprint-paper p-6 sm:p-8 text-center space-y-4">
+          <div className="flex items-center justify-between border-b-2 border-[#1c1917] pb-2 text-xs font-typewriter uppercase tracking-wider text-[#44403c]">
+            <span className="hidden sm:inline">"All The Facts Fit To Verify"</span>
+            <span className="font-bold text-[#1c1917]">ESTABLISHED MMXXVI</span>
+            <span className="hidden sm:inline">SPECIAL INVESTIGATIVE EDITION</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white">
-            News Verification & Fact-Checking
-          </h1>
+          <div className="py-2">
+            <h1 className="font-headline font-black text-4xl sm:text-6xl lg:text-7xl tracking-tight text-[#1c1917] uppercase">
+              The Daily Verifier
+            </h1>
+            <div className="flex items-center justify-center space-x-3 my-2 text-[#78716c]">
+              <span className="h-[1px] w-12 sm:w-24 bg-[#1c1917]" />
+              <span className="font-typewriter text-xs sm:text-sm tracking-widest uppercase font-bold text-[#1c1917]">
+                The International Fact-Checking & OSINT Gazette
+              </span>
+              <span className="h-[1px] w-12 sm:w-24 bg-[#1c1917]" />
+            </div>
+          </div>
 
-          <p className="text-sm sm:text-base text-slate-400 max-w-3xl leading-relaxed">
-            Cross-examine any news claim, article excerpt, or URL against live web reports, Tier-1 wire services (Reuters, AP), and peer-reviewed sources using Gemini 3.7 with real-time search grounding.
-          </p>
+          <div className="border-newspaper-double py-2.5 px-4 text-center">
+            <p className="font-body-news text-sm sm:text-base text-[#292524] italic max-w-3xl mx-auto leading-relaxed">
+              Cross-examining statements, breaking wire cables, articles, and rumors against primary archives, institutional databases, and Tier-1 wire services through Gemini 3.7 with live web search grounding.
+            </p>
+          </div>
         </div>
 
-        {/* Error Alert */}
+        {/* Error / Wire Alert Notice */}
         {errorMessage && (
-          <div className="p-4 rounded-xl bg-rose-950/30 border border-rose-500/30 text-rose-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-sm animate-fadeIn shadow-lg">
+          <div className="p-4 bg-[#fef2f2] border-2 border-[#991b1b] text-[#7f1d1d] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-sm shadow-[3px_3px_0px_#991b1b] animate-fadeIn">
             <div className="flex items-start space-x-3">
-              <AlertCircle className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
+              <AlertTriangle className="w-5 h-5 text-[#991b1b] shrink-0 mt-0.5" />
               <div className="space-y-1">
-                <span className="font-mono text-xs uppercase tracking-wider font-semibold text-rose-300">Investigation Notice:</span>
-                <p className="text-xs text-rose-200">{errorMessage}</p>
+                <span className="font-typewriter text-xs uppercase tracking-wider font-bold text-[#991b1b]">
+                  [DISPATCH TRANSMISSION NOTICE]:
+                </span>
+                <p className="font-body-news text-sm text-[#7f1d1d]">{errorMessage}</p>
               </div>
             </div>
             {currentClaimText && (
@@ -150,46 +181,46 @@ export default function App() {
                 type="button"
                 onClick={handleRetryLast}
                 disabled={isLoading}
-                className="self-start sm:self-auto flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-rose-900/50 hover:bg-rose-800/60 border border-rose-500/40 text-xs font-mono font-semibold text-rose-200 hover:text-white transition cursor-pointer shrink-0"
+                className="self-start sm:self-auto flex items-center space-x-1.5 px-3 py-1.5 bg-[#991b1b] text-white border border-[#7f1d1d] text-xs font-typewriter font-bold hover:bg-[#7f1d1d] transition cursor-pointer shrink-0"
               >
                 <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin' : ''}`} />
-                <span>Retry Verification</span>
+                <span>Re-transmit Inquiry</span>
               </button>
             )}
           </div>
         )}
 
-        {/* Input Station */}
+        {/* Input Station: The Wireroom Desk */}
         <VerificationInput
           onVerify={handleVerify}
           isLoading={isLoading}
           sampleClaims={sampleClaims}
         />
 
-        {/* Loading Progress State */}
+        {/* Loading / Typesetting Progress State */}
         {isLoading && <InvestigationProgress claimText={currentClaimText} />}
 
-        {/* Results Station */}
+        {/* Results Section: The Front Page Dossier */}
         {result && !isLoading && (
-          <div id="verification-results" className="space-y-8 animate-fadeIn pt-4">
-            {/* Primary Verdict & Truth Gauge */}
+          <div id="verification-results" className="space-y-6 animate-fadeIn pt-2">
+            {/* Primary Editorial Verdict Stamp & Column */}
             <VerdictDisplay
               result={result}
               onExportMarkdown={() => setIsExportModalOpen(true)}
               onExportJSON={() => setIsExportModalOpen(true)}
             />
 
-            {/* Key Evidence Breakdown */}
+            {/* Key Evidence Affidavits */}
             {result.key_evidence && result.key_evidence.length > 0 && (
               <EvidenceSection evidenceList={result.key_evidence} />
             )}
 
-            {/* Sources & Citations Tier Grid */}
+            {/* Sources & Citations Classifieds */}
             <SourcesGrid sources={result.sources} />
           </div>
         )}
 
-        {/* Recent Investigations History Drawer */}
+        {/* Archived Editions Drawer */}
         {history.length > 0 && (
           <HistoryDrawer
             history={history}
@@ -204,24 +235,26 @@ export default function App() {
         )}
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-white/5 bg-[#0A0A0C] mt-12 py-6 text-xs text-slate-500">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center space-x-2 font-mono text-[11px] text-slate-400">
-            <ShieldCheck className="w-4 h-4 text-blue-400" />
-            <span>VerifyNews AI • Gemini 3.7 + Live Search Grounding</span>
+      {/* Newspaper Footer */}
+      <footer className="border-t-2 border-[#1c1917] bg-[#fdfbf7] mt-12 py-6 text-xs text-[#57534e]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center space-x-2 font-typewriter text-[11px] text-[#1c1917]">
+            <Newspaper className="w-4 h-4" />
+            <span className="font-bold">THE DAILY VERIFIER PRESS</span>
+            <span className="text-[#a8a29e]">•</span>
+            <span>Gemini 3.7 & Real-Time Google Search Grounding</span>
           </div>
 
-          <div className="flex items-center space-x-4 font-mono text-[11px]">
+          <div className="flex items-center space-x-4 font-typewriter text-[11px] text-[#44403c]">
             <button
               onClick={() => setIsHowItWorksOpen(true)}
-              className="hover:text-slate-300 transition"
+              className="hover:text-[#1c1917] underline decoration-[#a8a29e] transition cursor-pointer"
             >
-              Methodology
+              Editorial Methodology
             </button>
             <button
               onClick={() => setIsPythonModalOpen(true)}
-              className="hover:text-amber-400 text-slate-400 transition"
+              className="hover:text-[#854d0e] font-bold text-[#854d0e] transition cursor-pointer"
             >
               Python app.py
             </button>
@@ -248,3 +281,4 @@ export default function App() {
     </div>
   );
 }
+

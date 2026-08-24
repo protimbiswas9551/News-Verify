@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Sparkles, Link as LinkIcon, FileText, Key, Sliders, ArrowRight, RefreshCw } from 'lucide-react';
+import { Search, Link as LinkIcon, FileText, Key, Sliders, ArrowRight, RefreshCw, Feather, Sparkles } from 'lucide-react';
 import { SampleClaim } from '../types';
 
 interface VerificationInputProps {
@@ -37,70 +37,66 @@ export const VerificationInput: React.FC<VerificationInputProps> = ({
   };
 
   return (
-    <div className="w-full rounded-2xl bg-[#121214] border border-white/5 p-5 sm:p-7 shadow-2xl text-white">
-      {/* Mode Selector */}
-      <div className="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-white/5">
-        <div className="flex items-center space-x-1 p-1 bg-[#050505] rounded-xl border border-white/10">
+    <div className="newsprint-paper p-5 sm:p-7 text-[#1c1917] space-y-4">
+      {/* Header bar */}
+      <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b-2 border-[#1c1917]">
+        <div className="flex items-center space-x-2">
+          <Feather className="w-5 h-5 text-[#1c1917]" />
+          <div>
+            <h2 className="font-headline font-bold text-base sm:text-lg uppercase tracking-tight text-[#1c1917]">
+              Wireroom Inquiry & Dispatch Desk
+            </h2>
+            <p className="text-xs font-typewriter text-[#57534e]">
+              Input assertions, articles, or wire links for instant empirical cross-examination.
+            </p>
+          </div>
+        </div>
+
+        {/* Input Mode Selector */}
+        <div className="flex items-center space-x-1 p-1 bg-[#f4eee1] border border-[#1c1917]">
           <button
             type="button"
             onClick={() => setInputMode('claim')}
-            className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
+            className={`flex items-center space-x-1.5 px-3 py-1 text-xs font-typewriter font-bold transition cursor-pointer ${
               inputMode === 'claim'
-                ? 'bg-blue-600 text-white shadow-sm'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-[#1c1917] text-[#fdfbf7]'
+                : 'text-[#44403c] hover:text-[#1c1917]'
             }`}
           >
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Claim / Statement</span>
+            <span>Statement / Lead</span>
           </button>
 
           <button
             type="button"
             onClick={() => setInputMode('article')}
-            className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
+            className={`flex items-center space-x-1.5 px-3 py-1 text-xs font-typewriter font-bold transition cursor-pointer ${
               inputMode === 'article'
-                ? 'bg-blue-600 text-white shadow-sm'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-[#1c1917] text-[#fdfbf7]'
+                : 'text-[#44403c] hover:text-[#1c1917]'
             }`}
           >
-            <FileText className="w-3.5 h-3.5" />
-            <span>Full Article Snippet</span>
+            <span>Full Excerpt</span>
           </button>
 
           <button
             type="button"
             onClick={() => setInputMode('url')}
-            className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
+            className={`flex items-center space-x-1.5 px-3 py-1 text-xs font-typewriter font-bold transition cursor-pointer ${
               inputMode === 'url'
-                ? 'bg-blue-600 text-white shadow-sm'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-[#1c1917] text-[#fdfbf7]'
+                : 'text-[#44403c] hover:text-[#1c1917]'
             }`}
           >
-            <LinkIcon className="w-3.5 h-3.5" />
-            <span>News URL</span>
+            <span>Wire URL</span>
           </button>
         </div>
-
-        <button
-          type="button"
-          onClick={() => setShowAdvanced(!showAdvanced)}
-          className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border transition ${
-            showAdvanced || customTavilyKey
-              ? 'bg-[#1A1A1E] text-blue-400 border-blue-500/40'
-              : 'bg-[#050505] text-slate-400 border-white/10 hover:text-slate-200'
-          }`}
-        >
-          <Sliders className="w-3.5 h-3.5" />
-          <span>Investigation Options</span>
-          {customTavilyKey && <span className="h-1.5 w-1.5 rounded-full bg-blue-400 shadow-[0_0_6px_rgba(96,165,250,0.8)]" />}
-        </button>
       </div>
 
       {/* Main Form */}
       <form onSubmit={handleSubmit} className="space-y-4">
         {inputMode === 'url' && (
           <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
+            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#78716c]">
               <LinkIcon className="w-4 h-4" />
             </div>
             <input
@@ -108,8 +104,8 @@ export const VerificationInput: React.FC<VerificationInputProps> = ({
               type="url"
               value={inputUrl}
               onChange={(e) => setInputUrl(e.target.value)}
-              placeholder="https://news-site.com/article/headline-breaking-story"
-              className="w-full pl-10 pr-4 py-3 bg-[#050505] rounded-xl border border-white/10 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-blue-500 transition font-sans shadow-inner"
+              placeholder="https://wire-service.com/article/breaking-investigation"
+              className="w-full pl-10 pr-4 py-2.5 bg-[#fcf9f2] border-2 border-[#1c1917] font-typewriter text-xs sm:text-sm text-[#1c1917] placeholder-[#a8a29e] focus:outline-none focus:bg-white shadow-[2px_2px_0px_#1c1917]"
             />
           </div>
         )}
@@ -127,68 +123,78 @@ export const VerificationInput: React.FC<VerificationInputProps> = ({
             }}
             placeholder={
               inputMode === 'claim'
-                ? "Enter or paste any headline, rumor, or empirical assertion to verify (e.g. 'NASA detected water vapor on an exoplanet in the habitable zone')..."
+                ? "Enter or paste any headline, rumor, or empirical assertion to verify (e.g., 'NASA orbital spectrometers detect signatures of water vapor in exoplanet atmosphere')..."
                 : inputMode === 'article'
-                ? "Paste the text of an entire news article or excerpt here. Gemini will isolate the core factual claim and cross-check it against live wire reporting..."
-                : "Optionally add specific context or quotes from the URL above..."
+                ? "Paste complete news article, column, or wire transmission here. Gemini will deconstruct the central assertion and cross-check against primary archives..."
+                : "Optionally add quotes or background context from the wire link above..."
             }
-            className="w-full p-4 bg-[#050505] rounded-xl border border-white/10 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-blue-500 resize-y transition leading-relaxed shadow-inner"
+            className="w-full p-4 bg-[#fcf9f2] border-2 border-[#1c1917] font-body-news text-base text-[#1c1917] placeholder-[#a8a29e] focus:outline-none focus:bg-white resize-y leading-relaxed shadow-[2px_2px_0px_#1c1917]"
           />
-          <div className="absolute bottom-3 right-3 text-[11px] text-slate-500 pointer-events-none hidden sm:block font-mono">
-            Press <kbd className="px-1.5 py-0.5 rounded bg-[#121214] border border-white/10 text-slate-400 text-[10px]">Ctrl+Enter</kbd> to verify
+          <div className="absolute bottom-3 right-3 text-[10px] text-[#78716c] pointer-events-none hidden sm:block font-typewriter">
+            [Ctrl+Enter to Dispatch]
           </div>
         </div>
 
-        {/* Advanced Accordion */}
+        {/* Advanced Options Bar */}
+        <div className="flex items-center justify-between text-xs">
+          <button
+            type="button"
+            onClick={() => setShowAdvanced(!showAdvanced)}
+            className="flex items-center space-x-1 font-typewriter text-[#44403c] hover:text-[#1c1917] underline decoration-dotted cursor-pointer"
+          >
+            <Sliders className="w-3.5 h-3.5" />
+            <span>{showAdvanced ? '[-] Conceal Wire Calibration' : '[+] Telegraph Investigation Depth & API Settings'}</span>
+          </button>
+
+          <span className="font-typewriter text-[11px] text-[#78716c]">
+            Wire: Google Live Search Grounding
+          </span>
+        </div>
+
+        {/* Advanced Drawer */}
         {showAdvanced && (
-          <div className="p-4 rounded-xl bg-[#0A0A0C] border border-white/5 space-y-3 animate-fadeIn">
+          <div className="p-4 bg-[#f4eee1] border border-[#1c1917] space-y-3 animate-fadeIn">
             <div className="flex flex-col sm:flex-row gap-4">
               <div className="flex-1">
-                <label className="block text-[11px] uppercase tracking-wider text-slate-400 font-semibold mb-1">
-                  Optional Tavily AI API Key
+                <label className="block text-[11px] font-typewriter font-bold uppercase tracking-wider text-[#1c1917] mb-1">
+                  Optional Tavily AI Key (Secondary Scraper)
                 </label>
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#78716c]">
                     <Key className="w-3.5 h-3.5" />
                   </div>
                   <input
                     type="password"
                     value={customTavilyKey}
                     onChange={(e) => setCustomTavilyKey(e.target.value)}
-                    placeholder="tvly-xxxxxxxxxxxx (uses Gemini Google Search if blank)"
-                    className="w-full pl-9 pr-3 py-2 bg-[#050505] rounded-lg border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-blue-400 font-mono"
+                    placeholder="tvly-xxxxxxxx (uses default Gemini Search if blank)"
+                    className="w-full pl-9 pr-3 py-1.5 bg-[#fdfbf7] border border-[#1c1917] font-typewriter text-xs text-[#1c1917]"
                   />
                 </div>
-                <p className="text-[11px] text-slate-500 mt-1">
-                  Provides secondary advanced news scraping alongside Gemini's native Google Search grounding.
-                </p>
               </div>
 
-              <div className="w-full sm:w-48">
-                <label className="block text-[11px] uppercase tracking-wider text-slate-400 font-semibold mb-1">
+              <div className="w-full sm:w-56">
+                <label className="block text-[11px] font-typewriter font-bold uppercase tracking-wider text-[#1c1917] mb-1">
                   Investigation Depth
                 </label>
                 <select
                   value={depth}
                   onChange={(e) => setDepth(e.target.value as 'standard' | 'deep')}
-                  className="w-full px-3 py-2 bg-[#050505] rounded-lg border border-white/10 text-xs text-white focus:outline-none focus:ring-1 focus:ring-blue-400"
+                  className="w-full px-3 py-1.5 bg-[#fdfbf7] border border-[#1c1917] font-typewriter text-xs text-[#1c1917]"
                 >
-                  <option value="standard">Standard Fact-Check</option>
-                  <option value="deep">Deep Cross-Examination</option>
+                  <option value="standard">Standard Wire Verification</option>
+                  <option value="deep">Deep Primary Cross-Examination</option>
                 </select>
-                <p className="text-[11px] text-slate-500 mt-1">
-                  Tier 1-3 wire corroboration.
-                </p>
               </div>
             </div>
           </div>
         )}
 
-        {/* Submit Bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
-          <div className="text-xs text-slate-400 flex items-center space-x-2">
-            <span className="inline-block w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_6px_rgba(59,130,246,0.8)]" />
-            <span className="font-mono text-[11px] text-slate-400">Gemini 3.7 Flash + Live Google Search Grounding</span>
+        {/* Submit & Control Bar */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2 border-t border-[#78716c]/30">
+          <div className="flex items-center space-x-2 text-[11px] font-typewriter text-[#57534e]">
+            <span className="w-2 h-2 rounded-full bg-[#15803d]" />
+            <span>Engaged: Primary Institutional Archives & Tier-1 Wire Corroboration</span>
           </div>
 
           <div className="flex items-center space-x-3 w-full sm:w-auto">
@@ -200,9 +206,9 @@ export const VerificationInput: React.FC<VerificationInputProps> = ({
                   setInputUrl('');
                 }}
                 disabled={isLoading}
-                className="px-3.5 py-2.5 rounded-xl bg-[#1a1a1e] hover:bg-[#222228] border border-white/5 text-xs font-medium text-slate-300 transition"
+                className="px-3 py-2 bg-[#f4eee1] hover:bg-[#efe6d5] border border-[#1c1917] text-xs font-typewriter font-bold text-[#1c1917] transition cursor-pointer"
               >
-                Clear
+                Clear Ink
               </button>
             )}
 
@@ -210,17 +216,17 @@ export const VerificationInput: React.FC<VerificationInputProps> = ({
               id="btn-submit-verification"
               type="submit"
               disabled={isLoading || (!inputText.trim() && !inputUrl.trim())}
-              className="flex-1 sm:flex-none flex items-center justify-center space-x-2 px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-blue-900/30 transition active:scale-[0.98]"
+              className="flex-1 sm:flex-none flex items-center justify-center space-x-2 px-6 py-2.5 bg-[#1c1917] hover:bg-[#292524] text-[#fdfbf7] disabled:opacity-50 disabled:cursor-not-allowed text-xs font-typewriter font-bold uppercase tracking-wider shadow-[3px_3px_0px_#78716c] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition cursor-pointer"
             >
               {isLoading ? (
                 <>
                   <RefreshCw className="w-4 h-4 animate-spin" />
-                  <span>Investigating Live Data...</span>
+                  <span>Teletype Inquiring Wire...</span>
                 </>
               ) : (
                 <>
                   <Search className="w-4 h-4" />
-                  <span>RUN VERIFICATION</span>
+                  <span>DISPATCH TO EDITORS</span>
                   <ArrowRight className="w-4 h-4 ml-1" />
                 </>
               )}
@@ -229,41 +235,36 @@ export const VerificationInput: React.FC<VerificationInputProps> = ({
         </div>
       </form>
 
-      {/* Quick Test Samples */}
+      {/* Front-Page Sample Headlines / Leads */}
       {sampleClaims.length > 0 && (
-        <div className="mt-6 pt-5 border-t border-white/5">
+        <div className="mt-5 pt-4 border-t-2 border-[#1c1917]">
           <div className="flex items-center justify-between mb-2.5">
-            <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest">
-              Quick Test Scenarios
+            <span className="font-headline font-bold text-xs uppercase tracking-wider text-[#1c1917] flex items-center space-x-1.5">
+              <span>❧</span>
+              <span>Today's Front-Page Leads to Investigate</span>
             </span>
-            <span className="text-[10px] text-slate-500 font-mono">Select to verify</span>
+            <span className="font-typewriter text-[10px] text-[#78716c]">Click lead to load</span>
           </div>
-          <div className="flex flex-wrap gap-2">
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
             {sampleClaims.map((sample) => (
               <button
                 key={sample.id}
                 type="button"
                 onClick={() => handleSelectSample(sample)}
-                className="group flex items-center space-x-2 px-3 py-1.5 rounded-xl bg-[#0A0A0C] hover:bg-[#16161a] border border-white/5 hover:border-white/20 text-left transition"
+                className="newsprint-card p-2.5 text-left transition hover:bg-[#f4eee1] hover:border-[#1c1917] group flex flex-col justify-between space-y-1.5 cursor-pointer"
               >
-                <span
-                  className={`text-[9px] font-mono font-bold px-1.5 py-0.5 rounded ${
-                    sample.category === 'Science'
-                      ? 'bg-cyan-950/60 text-cyan-400 border border-cyan-800/60'
-                      : sample.category === 'Health'
-                      ? 'bg-emerald-950/60 text-emerald-400 border border-emerald-800/60'
-                      : sample.category === 'Economy'
-                      ? 'bg-amber-950/60 text-amber-400 border border-amber-800/60'
-                      : sample.category === 'Politics'
-                      ? 'bg-purple-950/60 text-purple-400 border border-purple-800/60'
-                      : 'bg-rose-950/60 text-rose-400 border border-rose-800/60'
-                  }`}
-                >
-                  {sample.category}
-                </span>
-                <span className="text-xs text-slate-300 group-hover:text-white transition line-clamp-1 max-w-xs">
-                  {sample.claim}
-                </span>
+                <div className="flex items-center justify-between">
+                  <span className="text-[9px] font-typewriter font-bold uppercase px-1.5 py-0.5 bg-[#1c1917] text-[#fdfbf7]">
+                    {sample.category}
+                  </span>
+                  <span className="font-typewriter text-[9px] text-[#78716c] group-hover:text-[#1c1917]">
+                    Load &rarr;
+                  </span>
+                </div>
+                <p className="font-headline text-xs font-semibold text-[#1c1917] line-clamp-2 leading-snug">
+                  "{sample.claim}"
+                </p>
               </button>
             ))}
           </div>
@@ -272,3 +273,4 @@ export const VerificationInput: React.FC<VerificationInputProps> = ({
     </div>
   );
 };
+

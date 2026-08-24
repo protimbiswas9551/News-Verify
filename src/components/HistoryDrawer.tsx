@@ -1,5 +1,5 @@
 import React from 'react';
-import { History, X, Trash2, ArrowRight, ShieldCheck } from 'lucide-react';
+import { History, Trash2 } from 'lucide-react';
 import { FactCheckResult } from '../types';
 
 interface HistoryDrawerProps {
@@ -16,21 +16,21 @@ export const HistoryDrawer: React.FC<HistoryDrawerProps> = ({
   if (!history || history.length === 0) return null;
 
   return (
-    <div className="w-full rounded-2xl bg-[#121214] border border-white/5 p-5 text-white space-y-4 shadow-2xl">
-      <div className="flex items-center justify-between pb-3 border-b border-white/5">
+    <div className="newsprint-paper p-5 sm:p-6 text-[#1c1917] space-y-4 animate-fadeIn">
+      <div className="flex items-center justify-between pb-3 border-b-2 border-[#1c1917]">
         <div className="flex items-center space-x-2">
-          <History className="w-4 h-4 text-blue-400" />
-          <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300">
-            Recent Investigations ({history.length})
+          <History className="w-4 h-4 text-[#1c1917]" />
+          <h3 className="font-headline font-bold text-sm uppercase tracking-wider text-[#1c1917]">
+            Archived Editions & Past Inquiries ({history.length})
           </h3>
         </div>
 
         <button
           onClick={onClearHistory}
-          className="flex items-center space-x-1 font-mono text-[11px] text-slate-500 hover:text-rose-400 transition"
+          className="flex items-center space-x-1 font-typewriter text-xs text-[#78716c] hover:text-[#991b1b] transition cursor-pointer"
         >
-          <Trash2 className="w-3 h-3" />
-          <span>Clear History</span>
+          <Trash2 className="w-3.5 h-3.5" />
+          <span>Purge Archive</span>
         </button>
       </div>
 
@@ -40,37 +40,37 @@ export const HistoryDrawer: React.FC<HistoryDrawerProps> = ({
           const isFalse = item.verdict === 'False';
           const isMisleading = item.verdict === 'Misleading';
 
+          let stampColor = 'border-[#44403c] text-[#44403c] bg-[#f4eee1]';
+          if (isTrue) stampColor = 'border-[#166534] text-[#166534] bg-[#f0fdf4]';
+          else if (isFalse) stampColor = 'border-[#991b1b] text-[#991b1b] bg-[#fef2f2]';
+          else if (isMisleading) stampColor = 'border-[#b45309] text-[#b45309] bg-[#fffbeb]';
+
           return (
             <button
               key={idx}
               type="button"
               onClick={() => onSelectResult(item)}
-              className="p-3.5 rounded-xl bg-[#0A0A0C] hover:bg-[#16161a] border border-white/5 hover:border-white/20 text-left transition group flex flex-col justify-between space-y-2 shadow-lg"
+              className="newsprint-card p-3 text-left transition hover:bg-[#f4eee1] hover:border-[#1c1917] group flex flex-col justify-between space-y-2 cursor-pointer shadow-[2px_2px_0px_#1c1917]"
             >
               <div className="flex items-center justify-between">
                 <span
-                  className={`text-[9px] font-mono font-bold px-2 py-0.5 rounded border ${
-                    isTrue
-                      ? 'bg-emerald-950/40 text-emerald-300 border-emerald-500/30'
-                      : isFalse
-                      ? 'bg-rose-950/40 text-rose-300 border-rose-500/30'
-                      : isMisleading
-                      ? 'bg-amber-950/40 text-amber-300 border-amber-500/30'
-                      : 'bg-slate-900/40 text-slate-300 border-slate-500/30'
-                  }`}
+                  className={`text-[9px] font-typewriter font-bold uppercase px-2 py-0.5 border ${stampColor}`}
                 >
                   {item.verdict} • {item.truth_percentage}%
                 </span>
-                <ArrowRight className="w-3.5 h-3.5 text-slate-500 group-hover:text-blue-400 group-hover:translate-x-0.5 transition" />
+                <span className="font-typewriter text-xs text-[#78716c] group-hover:text-[#1c1917]">
+                  View &rarr;
+                </span>
               </div>
 
-              <p className="text-xs text-slate-200 line-clamp-2 font-medium">
+              <p className="font-headline text-xs font-semibold text-[#1c1917] line-clamp-2 leading-snug">
                 "{item.claim_analyzed}"
               </p>
 
-              <span className="text-[10px] font-mono text-slate-500">
-                {item.sources?.length || 0} citations • {item.timestamp ? new Date(item.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Recent'}
-              </span>
+              <div className="flex items-center justify-between text-[10px] font-typewriter text-[#78716c] pt-1 border-t border-[#78716c]/20">
+                <span>{item.sources?.length || 0} citations</span>
+                <span>{item.timestamp ? new Date(item.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Archived'}</span>
+              </div>
             </button>
           );
         })}
