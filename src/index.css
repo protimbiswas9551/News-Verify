@@ -2,14 +2,18 @@
 
 @layer base {
   body {
-    background-color: #eee5d3;
+    background-color: #ede2cd;
     color: #1c1917;
     font-family: 'Newsreader', Georgia, Cambria, "Times New Roman", Times, serif;
     background-image: 
-      /* Subtle noise grain and warm paper shading */
-      radial-gradient(ellipse at 50% 50%, rgba(253, 250, 243, 0.9) 0%, rgba(235, 224, 203, 0.95) 100%),
-      radial-gradient(#c4b59d 0.85px, transparent 0.85px);
-    background-size: 100% 100%, 14px 14px;
+      /* Micro-grain fiber stippling and warm aged pulp shading */
+      radial-gradient(ellipse at 50% 30%, rgba(253, 250, 241, 0.85) 0%, rgba(228, 214, 189, 0.95) 100%),
+      radial-gradient(circle at 15% 15%, rgba(180, 155, 120, 0.15) 0%, transparent 40%),
+      radial-gradient(circle at 85% 75%, rgba(165, 140, 105, 0.18) 0%, transparent 45%),
+      radial-gradient(#ab977b 0.75px, transparent 0.75px),
+      radial-gradient(#c2b093 0.5px, transparent 0.5px);
+    background-size: 100% 100%, 100% 100%, 100% 100%, 12px 12px, 6px 6px;
+    background-position: 0 0, 0 0, 0 0, 0 0, 3px 3px;
     background-attachment: fixed;
     min-height: 100vh;
   }

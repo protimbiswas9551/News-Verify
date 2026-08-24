@@ -10,6 +10,7 @@ import { PythonScriptModal } from './components/PythonScriptModal';
 import { ExportModal } from './components/ExportModal';
 import { HowItWorksModal } from './components/HowItWorksModal';
 import { HistoryDrawer } from './components/HistoryDrawer';
+import { NewspaperTextureOverlay } from './components/NewspaperTextureOverlay';
 import { FactCheckResult, SampleClaim } from './types';
 import { AlertTriangle, Newspaper, Radio, RefreshCw } from 'lucide-react';
 
@@ -112,10 +113,8 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#ede3d0] text-[#1c1917] flex flex-col selection:bg-[#1c1917] selection:text-[#fdfbf7] relative overflow-x-hidden">
-      {/* Authentic aged paper vignette and texture overlay */}
-      <div className="fixed inset-0 aged-paper-vignette z-0 pointer-events-none" />
-      <div className="ink-smudge-left z-0" />
-      <div className="ink-smudge-right z-0" />
+      {/* Authentic multi-layer newspaper broadsheet texture overlay */}
+      <NewspaperTextureOverlay />
 
       {/* Top Navigation Bar with Masthead */}
       <div className="relative z-10">
