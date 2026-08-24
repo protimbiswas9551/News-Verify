@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { VerificationInput } from './components/VerificationInput';
+import { FactCheckBulletin } from './components/FactCheckBulletin';
 import { InvestigationProgress } from './components/InvestigationProgress';
 import { VerdictDisplay } from './components/VerdictDisplay';
 import { EvidenceSection } from './components/EvidenceSection';
@@ -10,7 +11,7 @@ import { ExportModal } from './components/ExportModal';
 import { HowItWorksModal } from './components/HowItWorksModal';
 import { HistoryDrawer } from './components/HistoryDrawer';
 import { FactCheckResult, SampleClaim } from './types';
-import { AlertTriangle, Newspaper, Radio, RefreshCw, Feather, CheckCircle2 } from 'lucide-react';
+import { AlertTriangle, Newspaper, Radio, RefreshCw } from 'lucide-react';
 
 export default function App() {
   const [result, setResult] = useState<FactCheckResult | null>(null);
@@ -110,63 +111,42 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f4eee1] text-[#1c1917] flex flex-col selection:bg-[#1c1917] selection:text-[#fdfbf7]">
-      {/* Top Navigation */}
-      <Navbar
-        onOpenPythonModal={() => setIsPythonModalOpen(true)}
-        onOpenInfoModal={() => setIsHowItWorksOpen(true)}
-      />
+    <div className="min-h-screen bg-[#ede3d0] text-[#1c1917] flex flex-col selection:bg-[#1c1917] selection:text-[#fdfbf7] relative overflow-x-hidden">
+      {/* Authentic aged paper vignette and texture overlay */}
+      <div className="fixed inset-0 aged-paper-vignette z-0 pointer-events-none" />
+      <div className="ink-smudge-left z-0" />
+      <div className="ink-smudge-right z-0" />
 
-      {/* Retro Wire Ticker Tape */}
-      <div className="w-full bg-[#1c1917] text-[#f5f5f4] border-b border-[#44403c] py-1.5 overflow-hidden">
+      {/* Top Navigation Bar with Masthead */}
+      <div className="relative z-10">
+        <Navbar
+          onOpenPythonModal={() => setIsPythonModalOpen(true)}
+          onOpenInfoModal={() => setIsHowItWorksOpen(true)}
+        />
+      </div>
+
+      {/* Retro Teletype Wire Ticker */}
+      <div className="relative z-10 w-full bg-[#1c1917] text-[#f5f5f4] border-b-2 border-[#1c1917] py-1.5 overflow-hidden shadow-inner">
         <div className="ticker-wrap max-w-7xl mx-auto px-4 text-xs font-typewriter tracking-wide flex items-center">
           <div className="flex items-center space-x-2 shrink-0 bg-[#b91c1c] text-white px-2 py-0.5 mr-3 uppercase font-bold text-[10px]">
             <Radio className="w-3 h-3 animate-pulse" />
             <span>WIRE TICKER</span>
           </div>
           <div className="ticker-move space-x-8 text-[#e7e5e4] text-[11px]">
-            <span>◆ REUTERS CABLE: Global AI Verification Protocol Adopted By 40 Editorial Desks</span>
-            <span>◆ AP BULLETIN: Exoplanet Atmosphere Water Vapor Confirmed By Orbital Spectrometry</span>
+            <span>◆ REUTERS DISPATCH: Global AI Verification Protocols Standardized For Wire Services</span>
+            <span>◆ AP BULLETIN: James Webb Space Telescope Verifies Atmospheric Spectrometry On Exoplanets</span>
             <span>◆ FINANCIAL GAZETTE: Gold Bullion Crosses Historic Highs Amid Central Bank Accumulation</span>
             <span>◆ HEALTH CHRONICLE: Peer-Reviewed Lancet Meta-Analysis Disproves Viral Superfood Myth</span>
-            <span>◆ TELETYPE NOTICE: Cross-Reference Your Rumors Against Primary Institutional Records</span>
+            <span>◆ TELETYPE NOTICE: Cross-Reference All Claims Against Primary Institutional Registries</span>
           </div>
         </div>
       </div>
 
-      {/* Main Newspaper Broadsheet Sheet */}
-      <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
-        {/* Authentic Newspaper Masthead Banner */}
-        <div className="newsprint-paper p-6 sm:p-8 text-center space-y-4">
-          <div className="flex items-center justify-between border-b-2 border-[#1c1917] pb-2 text-xs font-typewriter uppercase tracking-wider text-[#44403c]">
-            <span className="hidden sm:inline">"All The Facts Fit To Verify"</span>
-            <span className="font-bold text-[#1c1917]">ESTABLISHED MMXXVI</span>
-            <span className="hidden sm:inline">SPECIAL INVESTIGATIVE EDITION</span>
-          </div>
-
-          <div className="py-2">
-            <h1 className="font-headline font-black text-4xl sm:text-6xl lg:text-7xl tracking-tight text-[#1c1917] uppercase">
-              The Daily Verifier
-            </h1>
-            <div className="flex items-center justify-center space-x-3 my-2 text-[#78716c]">
-              <span className="h-[1px] w-12 sm:w-24 bg-[#1c1917]" />
-              <span className="font-typewriter text-xs sm:text-sm tracking-widest uppercase font-bold text-[#1c1917]">
-                The International Fact-Checking & OSINT Gazette
-              </span>
-              <span className="h-[1px] w-12 sm:w-24 bg-[#1c1917]" />
-            </div>
-          </div>
-
-          <div className="border-newspaper-double py-2.5 px-4 text-center">
-            <p className="font-body-news text-sm sm:text-base text-[#292524] italic max-w-3xl mx-auto leading-relaxed">
-              Cross-examining statements, breaking wire cables, articles, and rumors against primary archives, institutional databases, and Tier-1 wire services through Gemini 3.7 with live web search grounding.
-            </p>
-          </div>
-        </div>
-
+      {/* Main 2-Column Newspaper Layout matching reference photo */}
+      <main className="relative z-10 flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Error / Wire Alert Notice */}
         {errorMessage && (
-          <div className="p-4 bg-[#fef2f2] border-2 border-[#991b1b] text-[#7f1d1d] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-sm shadow-[3px_3px_0px_#991b1b] animate-fadeIn">
+          <div className="mb-6 p-4 bg-[#fef2f2] border-2 border-[#991b1b] text-[#7f1d1d] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-sm shadow-[4px_4px_0px_#991b1b] animate-fadeIn">
             <div className="flex items-start space-x-3">
               <AlertTriangle className="w-5 h-5 text-[#991b1b] shrink-0 mt-0.5" />
               <div className="space-y-1">
@@ -190,57 +170,79 @@ export default function App() {
           </div>
         )}
 
-        {/* Input Station: The Wireroom Desk */}
-        <VerificationInput
-          onVerify={handleVerify}
-          isLoading={isLoading}
-          sampleClaims={sampleClaims}
-        />
-
-        {/* Loading / Typesetting Progress State */}
-        {isLoading && <InvestigationProgress claimText={currentClaimText} />}
-
-        {/* Results Section: The Front Page Dossier */}
-        {result && !isLoading && (
-          <div id="verification-results" className="space-y-6 animate-fadeIn pt-2">
-            {/* Primary Editorial Verdict Stamp & Column */}
-            <VerdictDisplay
-              result={result}
-              onExportMarkdown={() => setIsExportModalOpen(true)}
-              onExportJSON={() => setIsExportModalOpen(true)}
+        {/* 2-Column Broadsheet Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          {/* Main Left Section: Input Desk, Progress & Full Dossier Results */}
+          <div className="lg:col-span-8 xl:col-span-8 space-y-6">
+            {/* Input Station & Quick Test Scenarios */}
+            <VerificationInput
+              onVerify={handleVerify}
+              isLoading={isLoading}
+              sampleClaims={sampleClaims}
             />
 
-            {/* Key Evidence Affidavits */}
-            {result.key_evidence && result.key_evidence.length > 0 && (
-              <EvidenceSection evidenceList={result.key_evidence} />
-            )}
+            {/* Loading / Typesetting Progress State */}
+            {isLoading && <InvestigationProgress claimText={currentClaimText} />}
 
-            {/* Sources & Citations Classifieds */}
-            <SourcesGrid sources={result.sources} />
+            {/* Detailed Results Section */}
+            {result && !isLoading && (
+              <div id="verification-results" className="space-y-6 animate-fadeIn pt-2">
+                {/* Primary Editorial Verdict Stamp & Reasoning Column */}
+                <VerdictDisplay
+                  result={result}
+                  onExportMarkdown={() => setIsExportModalOpen(true)}
+                  onExportJSON={() => setIsExportModalOpen(true)}
+                />
+
+                {/* Key Evidence Exhibits */}
+                {result.key_evidence && result.key_evidence.length > 0 && (
+                  <EvidenceSection evidenceList={result.key_evidence} />
+                )}
+
+                {/* Sources & Citations Classifieds */}
+                <SourcesGrid sources={result.sources} />
+              </div>
+            )}
           </div>
-        )}
+
+          {/* Right Sidebar: FACT-CHECK BULLETIN with Recent Investigations & Rubber Stamps */}
+          <div className="lg:col-span-4 xl:col-span-4 space-y-6 lg:sticky lg:top-6">
+            <FactCheckBulletin
+              history={history}
+              isLoading={isLoading}
+              onSelectResult={(selected) => {
+                setResult(selected);
+                setTimeout(() => {
+                  document.getElementById('verification-results')?.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+              }}
+            />
+          </div>
+        </div>
 
         {/* Archived Editions Drawer */}
         {history.length > 0 && (
-          <HistoryDrawer
-            history={history}
-            onSelectResult={(selected) => {
-              setResult(selected);
-              setTimeout(() => {
-                document.getElementById('verification-results')?.scrollIntoView({ behavior: 'smooth' });
-              }, 100);
-            }}
-            onClearHistory={handleClearHistory}
-          />
+          <div className="mt-8">
+            <HistoryDrawer
+              history={history}
+              onSelectResult={(selected) => {
+                setResult(selected);
+                setTimeout(() => {
+                  document.getElementById('verification-results')?.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+              }}
+              onClearHistory={handleClearHistory}
+            />
+          </div>
         )}
       </main>
 
       {/* Newspaper Footer */}
-      <footer className="border-t-2 border-[#1c1917] bg-[#fdfbf7] mt-12 py-6 text-xs text-[#57534e]">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <footer className="relative z-10 border-t-2 border-[#1c1917] bg-[#fcf8ee] mt-12 py-5 text-xs text-[#57534e]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center space-x-2 font-typewriter text-[11px] text-[#1c1917]">
             <Newspaper className="w-4 h-4" />
-            <span className="font-bold">THE DAILY VERIFIER PRESS</span>
+            <span className="font-bold uppercase tracking-wider">The Daily Verifier Press</span>
             <span className="text-[#a8a29e]">•</span>
             <span>Gemini 3.7 & Real-Time Google Search Grounding</span>
           </div>
@@ -281,4 +283,5 @@ export default function App() {
     </div>
   );
 }
+
 

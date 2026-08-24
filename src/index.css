@@ -2,20 +2,22 @@
 
 @layer base {
   body {
-    background-color: #f4eee1;
+    background-color: #eee5d3;
     color: #1c1917;
     font-family: 'Newsreader', Georgia, Cambria, "Times New Roman", Times, serif;
     background-image: 
-      radial-gradient(#d6cbb8 0.75px, transparent 0.75px),
-      linear-gradient(to right, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
-    background-size: 16px 16px, 120px 100%;
+      /* Subtle noise grain and warm paper shading */
+      radial-gradient(ellipse at 50% 50%, rgba(253, 250, 243, 0.9) 0%, rgba(235, 224, 203, 0.95) 100%),
+      radial-gradient(#c4b59d 0.85px, transparent 0.85px);
+    background-size: 100% 100%, 14px 14px;
     background-attachment: fixed;
+    min-height: 100vh;
   }
 }
 
 /* Authentic Newspaper Typography */
 .font-masthead {
-  font-family: 'UnifrakturMaguntia', 'Playfair Display', Georgia, serif;
+  font-family: 'Cinzel Decorative', 'Playfair Display', Georgia, serif;
 }
 
 .font-headline {
@@ -34,29 +36,46 @@
   font-family: 'Special Elite', 'Courier Prime', monospace;
 }
 
-/* Authentic Newspaper Broadsheet Cards & Newsprint styling */
+/* Authentic Newspaper Broadsheet Paper with aged texture and ink bleed */
 .newsprint-paper {
-  background-color: #fdfbf7;
+  background-color: #fcf8ee;
   background-image: 
-    radial-gradient(#e5dbc9 0.5px, transparent 0.5px),
-    linear-gradient(180deg, rgba(245, 238, 225, 0.4) 0%, rgba(253, 251, 247, 0.9) 100%);
-  background-size: 8px 8px, 100% 100%;
-  border: 1px solid #292524;
+    radial-gradient(circle at 10% 20%, rgba(217, 198, 168, 0.15) 0%, transparent 25%),
+    radial-gradient(circle at 90% 85%, rgba(205, 185, 150, 0.2) 0%, transparent 35%),
+    radial-gradient(#d8ccb8 0.6px, transparent 0.6px),
+    linear-gradient(180deg, #fdfaf3 0%, #f7f0df 100%);
+  background-size: 100% 100%, 100% 100%, 10px 10px, 100% 100%;
+  border: 2px solid #1c1917;
   box-shadow: 
-    3px 3px 0px rgba(28, 25, 23, 0.85),
-    0 10px 25px -5px rgba(41, 37, 36, 0.15);
+    4px 4px 0px rgba(28, 25, 23, 0.9),
+    0 15px 35px -5px rgba(44, 38, 30, 0.2);
+  position: relative;
+}
+
+.newsprint-paper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 50%, transparent 80%, rgba(94, 76, 52, 0.05) 100%);
 }
 
 .newsprint-card {
-  background-color: #fcf9f2;
-  border: 1px solid #44403c;
-  box-shadow: 2px 2px 0px rgba(41, 37, 36, 0.7);
+  background-color: #fcf7ec;
+  background-image: linear-gradient(180deg, #fdfaf4 0%, #f8f1e2 100%);
+  border: 1.5px solid #292524;
+  box-shadow: 2px 2px 0px rgba(28, 25, 23, 0.85);
+  position: relative;
+}
+
+.newsprint-card:hover {
+  background-color: #f7eed9;
 }
 
 .newsprint-inset {
-  background-color: #f2ebd9;
-  border: 1px solid #78716c;
-  box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.08);
+  background-color: #f0e6d2;
+  border: 1.5px solid #57534e;
+  box-shadow: inset 2px 2px 4px rgba(44, 38, 30, 0.12);
 }
 
 /* Double Newspaper Broadsheet Rules */
@@ -66,8 +85,8 @@
 }
 
 .border-newspaper-thick-thin {
-  border-top: 3px solid #1c1917;
-  border-bottom: 1px solid #1c1917;
+  border-top: 3.5px solid #1c1917;
+  border-bottom: 1.5px solid #1c1917;
 }
 
 .border-newspaper-bottom-double {
@@ -78,11 +97,58 @@
   border-top: 4px double #1c1917;
 }
 
+/* Newspaper Stains & Distressed Edge Effects */
+.aged-paper-vignette {
+  background: 
+    radial-gradient(circle at 0% 0%, rgba(68, 51, 31, 0.12) 0%, transparent 20%),
+    radial-gradient(circle at 100% 0%, rgba(68, 51, 31, 0.1) 0%, transparent 20%),
+    radial-gradient(circle at 0% 100%, rgba(68, 51, 31, 0.15) 0%, transparent 25%),
+    radial-gradient(circle at 100% 100%, rgba(68, 51, 31, 0.15) 0%, transparent 25%);
+  pointer-events: none;
+}
+
+.ink-smudge-left {
+  position: absolute;
+  left: -20px;
+  top: 180px;
+  width: 70px;
+  height: 120px;
+  opacity: 0.18;
+  background: radial-gradient(ellipse at 40% 50%, #2b1d0c 0%, rgba(43, 29, 12, 0.4) 40%, transparent 70%);
+  filter: blur(4px);
+  pointer-events: none;
+  transform: rotate(-15deg);
+}
+
+.ink-smudge-right {
+  position: absolute;
+  right: -15px;
+  top: 340px;
+  width: 90px;
+  height: 140px;
+  opacity: 0.15;
+  background: radial-gradient(ellipse at 50% 50%, #2b1d0c 0%, rgba(43, 29, 12, 0.3) 45%, transparent 75%);
+  filter: blur(5px);
+  pointer-events: none;
+  transform: rotate(25deg);
+}
+
+.ink-blot-speck {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #2b1d0c;
+  border-radius: 50%;
+  opacity: 0.25;
+  filter: blur(1px);
+  pointer-events: none;
+}
+
 /* Broadsheet Columns */
 .news-columns-2 {
   column-count: 1;
   column-gap: 2rem;
-  column-rule: 1px dashed #a8a29e;
+  column-rule: 1px dashed #78716c;
 }
 
 @media (min-width: 768px) {
@@ -104,57 +170,76 @@
   color: #1c1917;
 }
 
-/* Authentic Newspaper Rubber Stamps */
-.verdict-stamp-true {
-  background-color: #eaf5ee;
-  border: 3px dashed #166534;
-  color: #14532d;
-  box-shadow: 
-    inset 0 0 0 2px #dcfce7,
-    3px 3px 0px rgba(22, 101, 52, 0.4);
-  position: relative;
-}
-
-.verdict-stamp-false {
-  background-color: #fef2f2;
-  border: 3px dashed #991b1b;
-  color: #7f1d1d;
-  box-shadow: 
-    inset 0 0 0 2px #fee2e2,
-    3px 3px 0px rgba(153, 27, 27, 0.4);
-  position: relative;
-}
-
-.verdict-stamp-misleading {
-  background-color: #fffbeb;
-  border: 3px dashed #b45309;
-  color: #78350f;
-  box-shadow: 
-    inset 0 0 0 2px #fef3c7,
-    3px 3px 0px rgba(180, 83, 9, 0.4);
-  position: relative;
-}
-
-.verdict-stamp-unverifiable {
-  background-color: #f5f5f4;
-  border: 3px dashed #44403c;
-  color: #292524;
-  box-shadow: 
-    inset 0 0 0 2px #e7e5e4,
-    3px 3px 0px rgba(68, 64, 60, 0.4);
-  position: relative;
-}
-
-/* Rubber Stamp Watermark Effect */
-.stamp-badge {
+/* Realistic Inked Rubber Stamps */
+.rubber-stamp {
   font-family: 'Special Elite', 'Courier Prime', monospace;
-  letter-spacing: 0.15em;
+  font-weight: 800;
   text-transform: uppercase;
-  font-weight: 700;
-  border: 2px solid currentColor;
-  padding: 0.25rem 0.75rem;
-  display: inline-block;
-  transform: rotate(-1.5deg);
+  letter-spacing: 0.12em;
+  padding: 0.2rem 0.6rem;
+  border-width: 2.5px;
+  border-style: solid;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    inset 0 0 0 1px currentColor,
+    1px 1px 0px rgba(0, 0, 0, 0.15);
+  mask-image: radial-gradient(circle at 50% 50%, black 85%, transparent 100%);
+  transition: transform 0.2s ease;
+}
+
+.rubber-stamp-true {
+  color: #15803d;
+  border-color: #15803d;
+  background-color: rgba(220, 252, 231, 0.6);
+  transform: rotate(-3deg);
+}
+
+.rubber-stamp-false {
+  color: #b91c1c;
+  border-color: #b91c1c;
+  background-color: rgba(254, 226, 226, 0.6);
+  transform: rotate(4deg);
+}
+
+.rubber-stamp-misleading {
+  color: #b45309;
+  border-color: #b45309;
+  background-color: rgba(254, 243, 199, 0.6);
+  transform: rotate(-2deg);
+}
+
+.rubber-stamp-unverifiable {
+  color: #44403c;
+  border-color: #44403c;
+  background-color: rgba(245, 245, 244, 0.6);
+  transform: rotate(3deg);
+}
+
+/* Heavy Newspaper Button */
+.btn-newspaper-stamp {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border: 3px double #1c1917;
+  background-color: #fdfaf3;
+  color: #1c1917;
+  padding: 0.6rem 1.5rem;
+  box-shadow: 3px 3px 0px #1c1917;
+  transition: all 0.15s ease;
+}
+
+.btn-newspaper-stamp:hover:not(:disabled) {
+  background-color: #1c1917;
+  color: #fdfbf7;
+  box-shadow: 4px 4px 0px #78716c;
+}
+
+.btn-newspaper-stamp:active:not(:disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #1c1917;
 }
 
 /* Telegraph ticker */
@@ -170,8 +255,9 @@
 
 .ticker-move {
   display: inline-block;
-  animation: ticker 30s linear infinite;
+  animation: ticker 32s linear infinite;
 }
+
 
 
 
