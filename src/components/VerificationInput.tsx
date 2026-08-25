@@ -68,15 +68,34 @@ export const VerificationInput: React.FC<VerificationInputProps> = ({
 
   return (
     <div className="space-y-6 text-[#11100e]">
-      {/* Primary Headline and Subtitle */}
-      <div>
-        <h2 className="font-headline font-black text-2xl sm:text-3xl md:text-4xl text-[#11100e] tracking-tight uppercase leading-tight">
-          NEWS VERIFICATION & FACT-CHECKING: <br className="hidden sm:inline" />
+      {/* Primary Headline and Subtitle in Antique Aged Parchment Paper Sheet */}
+      <div className="parchment-sheet-card p-5 sm:p-6 text-[#15110e] relative overflow-hidden">
+        {/* Subtle top dateline / seal banner */}
+        <div className="flex items-center justify-between border-b border-[#36291e]/40 pb-2 mb-3">
+          <div className="flex items-center space-x-2">
+            <span className="font-serif text-[#36291e] text-sm">❦</span>
+            <span className="font-typewriter text-[10px] sm:text-[11px] uppercase tracking-widest font-bold text-[#423326]">
+              OFFICIAL BUREAU DISPATCH • INQUIRY DESK
+            </span>
+          </div>
+          <span className="font-typewriter text-[10px] text-[#594534] uppercase tracking-wider font-semibold hidden sm:inline">
+            PRESS PROOF N° 849
+          </span>
+        </div>
+
+        <h2 className="font-headline font-black text-2xl sm:text-3xl md:text-4xl text-[#120e0b] tracking-tight uppercase leading-tight drop-shadow-[0.5px_0.5px_0px_rgba(255,255,255,0.7)]">
+          NEWS VERIFICATION &amp; FACT-CHECKING: <br className="hidden sm:inline" />
           AN ENGINE FOR THE TRUTH
         </h2>
-        <p className="font-body-news italic text-sm sm:text-base text-[#292524] mt-1.5 font-medium">
+        <p className="font-body-news italic text-sm sm:text-base text-[#281f18] mt-2 font-medium leading-relaxed">
           Cross-examine any news claim, rumor, article excerpt, and peer-checking grounding
         </p>
+
+        {/* Bottom subtle rule with fleuron */}
+        <div className="mt-3 pt-2 border-t border-[#36291e]/25 flex items-center justify-between text-[10px] font-typewriter text-[#594534] uppercase tracking-wider">
+          <span>DEPARTMENT OF INVESTIGATION</span>
+          <span className="font-serif">❧</span>
+        </div>
       </div>
 
       {/* Main Input Form with Ledger Grid & Side Options */}
