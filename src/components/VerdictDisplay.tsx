@@ -140,27 +140,70 @@ export const VerdictDisplay: React.FC<VerdictDisplayProps> = ({
       {/* Main Rubber Stamp & Confidence Meter Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left 2 Cols: The Grand Editorial Rubber Stamp */}
-        <div className={`lg:col-span-2 p-6 sm:p-7 ${theme.stampClass} flex flex-col justify-between transition-all duration-300`}>
+        <div 
+          key={`verdict-card-${result.claim_analyzed}`}
+          className={`lg:col-span-2 p-6 sm:p-7 ${theme.stampClass} flex flex-col justify-between transition-all duration-300 relative overflow-hidden animate-paper-impact`}
+        >
+          {/* Physical Stamped Stamp Badge watermark / seal in background */}
+          <div className="absolute right-4 top-4 pointer-events-none opacity-15 hidden sm:block">
+            <div className="w-32 h-32 rounded-full border-4 border-dashed border-current flex items-center justify-center rotate-12">
+              <span className="font-stamp text-xs uppercase text-center font-black">
+                EDITORIAL VERIFICATION<br />★ 1898 ★<br />SEAL
+              </span>
+            </div>
+          </div>
+
           <div>
             <div className="flex items-center justify-between border-b border-current pb-2 mb-3">
               <span className="font-typewriter text-[11px] font-bold uppercase tracking-widest opacity-90">
                 Official Gazette Verdict
               </span>
-              <span className="stamp-badge text-xs">
-                {theme.badgeText}
-              </span>
+              
+              {/* Dynamic Rubber Stamp Badge with Physical Drop-in & Slight-Shake Animation */}
+              <div
+                key={`badge-${result.claim_analyzed}-${result.verdict}`}
+                className="animate-rubber-stamp stamp-seal-badge bg-white/60 border-2 border-current shadow-sm"
+              >
+                <div className="flex items-center space-x-1">
+                  <span className="text-[10px] tracking-widest font-bold">★</span>
+                  <span className="text-xs sm:text-sm font-stamp font-black tracking-wider">
+                    {result.verdict.toUpperCase()}
+                  </span>
+                  <span className="text-[10px] tracking-widest font-bold">★</span>
+                </div>
+              </div>
             </div>
 
-            <div className="my-3">
-              <div className="flex items-center space-x-3">
-                <VerdictIcon className="w-8 h-8 sm:w-10 sm:h-10 shrink-0" />
-                <h2 className="font-headline text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight uppercase">
-                  {theme.headline}
-                </h2>
+            <div className="my-3 flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+              <div className="space-y-2 flex-1">
+                <div className="flex items-center space-x-3">
+                  <VerdictIcon className="w-8 h-8 sm:w-10 sm:h-10 shrink-0" />
+                  <h2 className="font-headline text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight uppercase">
+                    {theme.headline}
+                  </h2>
+                </div>
+                <p className="font-body-news text-base sm:text-lg opacity-90 leading-relaxed">
+                  {theme.subtitle}
+                </p>
               </div>
-              <p className="font-body-news text-base sm:text-lg opacity-90 mt-2 leading-relaxed">
-                {theme.subtitle}
-              </p>
+
+              {/* Large Inked Rubber Stamp Impression */}
+              <div className="shrink-0 self-center sm:self-start pt-2">
+                <div
+                  key={`stamp-seal-${result.claim_analyzed}-${result.verdict}`}
+                  className="animate-rubber-stamp stamp-seal-badge border-3 border-current px-4 py-2 text-center bg-white/70 shadow-md transform -rotate-6"
+                >
+                  <span className="text-[9px] font-typewriter tracking-widest uppercase opacity-85 block mb-0.5">
+                    INVESTIGATION STATUS
+                  </span>
+                  <span className="text-xl sm:text-2xl font-stamp font-black tracking-widest block leading-tight">
+                    [{result.verdict.toUpperCase()}]
+                  </span>
+                  <span className="text-[9px] font-typewriter tracking-widest uppercase opacity-85 block mt-0.5">
+                    ACCURACY {truthPct}%
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
 
