@@ -1,6 +1,6 @@
 import React from 'react';
 import { Terminal, BookOpen } from 'lucide-react';
-import mastheadFullBanner from '../assets/images/sahikya_full_masthead_1787668689249.jpg';
+import mastheadFullBanner from '../assets/images/sahikya_masthead_banner_1787668862616.jpg';
 
 interface NavbarProps {
   onOpenPythonModal: () => void;
@@ -14,12 +14,13 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <header className="w-full bg-[#fdfbf7] border-b-2 border-[#1c1917] shadow-sm">
       {/* Full Top Medieval Engraved Masthead Banner with SahiKya, Dispatch, and Weather */}
-      <div className="w-full border-b-2 border-[#1c1917] bg-[#f7f1e1] relative overflow-hidden flex items-center justify-center p-0">
+      <div className="w-full border-b-2 border-[#1c1917] bg-[#f4eee1] relative overflow-hidden flex items-center justify-center p-0">
         <img
+          id="masthead-full-banner-img"
           src={mastheadFullBanner}
-          alt="SahiKya - The Impartial Truth & Fact-Checking Engine"
+          alt="SahiKya - Impartial Truth & Fact-Checking Engine"
           referrerPolicy="no-referrer"
-          className="w-full h-auto max-h-48 sm:max-h-56 md:max-h-64 lg:max-h-72 object-cover object-center select-none block"
+          className="w-full h-auto max-h-52 sm:max-h-64 md:max-h-72 lg:max-h-80 object-contain object-center select-none block mx-auto"
         />
       </div>
 
