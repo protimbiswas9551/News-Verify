@@ -130,12 +130,31 @@ export const VerificationInput: React.FC<VerificationInputProps> = ({
                 </span>
               </div>
 
-              {/* Engraving Globe Icon */}
-              <div className="my-2 relative flex items-center justify-center">
-                <div className="w-14 h-14 rounded-full border-2 border-[#11100e] bg-[#fdfbf7] flex items-center justify-center shadow-inner relative group-hover:scale-105 transition">
-                  <Globe className="w-8 h-8 text-[#11100e] stroke-[1.6]" />
-                  <div className="absolute -bottom-0.5 -right-0.5 p-1 bg-[#11100e] text-[#fdfbf7] rounded-full">
-                    <Search className="w-3 h-3" />
+              {/* Vintage Antique Brass Meridian Globe */}
+              <div className="my-1.5 relative flex items-center justify-center">
+                <div className="relative w-20 h-20 sm:w-22 sm:h-22 rounded-full p-1 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
+                  {/* Brass Semi-Meridian Outer Caliper Ring */}
+                  <div className="absolute inset-0 rounded-full border-[3px] border-[#8c6d3b] shadow-[0_2px_8px_rgba(80,50,20,0.3)] pointer-events-none opacity-90"></div>
+                  
+                  {/* Top and Bottom Brass Axis Mount Pins */}
+                  <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-3.5 h-2 bg-[#705326] border border-[#3e2c13] rounded-t-sm shadow-sm z-10"></div>
+                  <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-4 h-2 bg-[#705326] border border-[#3e2c13] rounded-b-sm shadow-sm z-10"></div>
+
+                  {/* Antique Sepia Parchment Cartography Globe Ball */}
+                  <div className="w-full h-full rounded-full overflow-hidden border-2 border-[#4a351b] shadow-inner relative bg-[#e8d8b8]">
+                    <img
+                      src="/vintage_globe.jpg"
+                      alt="Antique Cartography Globe"
+                      className="w-full h-full object-cover object-center scale-110 group-hover:rotate-12 transition-transform duration-700 ease-out filter contrast-110 sepia-[0.25]"
+                      referrerPolicy="no-referrer"
+                    />
+                    {/* Spherical lighting & shade overlay */}
+                    <div className="absolute inset-0 rounded-full pointer-events-none shadow-[inset_-8px_-8px_16px_rgba(40,25,10,0.5),inset_6px_6px_12px_rgba(255,250,230,0.4)] mix-blend-multiply"></div>
+                  </div>
+
+                  {/* Bureau Search Badge */}
+                  <div className="absolute -bottom-1 -right-1 p-1.5 bg-[#2a1d12] text-[#f7eedc] border border-[#8c6d3b] rounded-full shadow-md z-20">
+                    <Search className="w-3.5 h-3.5" />
                   </div>
                 </div>
               </div>
