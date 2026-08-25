@@ -2,10 +2,10 @@
 
 @layer base {
   body {
-    background-color: #dfd3bd;
+    background-color: #e5d9c3;
     color: #1c1917;
     font-family: 'Newsreader', Georgia, Cambria, "Times New Roman", Times, serif;
-    background-image: url('/newspaper_bg.jpg');
+    background-image: url('/photorealistic_newsprint_bg.jpg');
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
@@ -21,7 +21,7 @@
 .font-medieval {
   font-family: 'Old English Text MT', 'Old English Text', 'Cloister Black', 'Chomsky', 'Old London', 'Engravers Old English', 'UnifrakturMaguntia', 'UnifrakturCook', Georgia, serif;
   font-weight: normal;
-  letter-spacing: 0.01em;
+  letter-spacing: -0.01em;
 }
 
 .font-gothic-condensed {
@@ -46,6 +46,30 @@
   font-family: 'Special Elite', 'Courier Prime', monospace;
 }
 
+/* Photorealistic Aged Newsprint Page */
+.newsprint-sheet {
+  background-color: #f7eedc;
+  background-image: 
+    radial-gradient(ellipse at 50% 10%, rgba(254, 250, 240, 0.6) 0%, transparent 70%),
+    radial-gradient(circle at 10% 20%, rgba(200, 175, 135, 0.15) 0%, transparent 30%),
+    radial-gradient(circle at 90% 85%, rgba(190, 165, 125, 0.2) 0%, transparent 40%),
+    linear-gradient(180deg, rgba(247, 238, 220, 0.95) 0%, rgba(242, 230, 208, 0.98) 100%);
+  box-shadow: 
+    0 0 0 1px rgba(60, 45, 25, 0.3),
+    0 8px 30px rgba(50, 35, 15, 0.25),
+    0 25px 60px rgba(35, 25, 10, 0.35);
+  position: relative;
+}
+
+/* Vintage Ruled Ledger Grid Texture for Input Area */
+.bg-ledger-grid {
+  background-color: #fdfaf3;
+  background-image: 
+    linear-gradient(to right, rgba(140, 120, 95, 0.12) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(140, 120, 95, 0.15) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
 /* Authentic Newspaper Broadsheet Paper with aged texture and ink bleed */
 .newsprint-paper {
   background-color: #fcf8ee;
@@ -57,29 +81,21 @@
   background-size: 100% 100%, 100% 100%, 10px 10px, 100% 100%;
   border: 2px solid #1c1917;
   box-shadow: 
-    4px 4px 0px rgba(28, 25, 23, 0.9),
-    0 15px 35px -5px rgba(44, 38, 30, 0.2);
+    3px 3px 0px rgba(28, 25, 23, 0.9),
+    0 10px 25px -5px rgba(44, 38, 30, 0.18);
   position: relative;
 }
 
-.newsprint-paper::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(circle at 50% 50%, transparent 80%, rgba(94, 76, 52, 0.05) 100%);
-}
-
 .newsprint-card {
-  background-color: #fcf7ec;
-  background-image: linear-gradient(180deg, #fdfaf4 0%, #f8f1e2 100%);
+  background-color: #fbf6ea;
+  background-image: linear-gradient(180deg, #fdfaf4 0%, #f7efe0 100%);
   border: 1.5px solid #292524;
   box-shadow: 2px 2px 0px rgba(28, 25, 23, 0.85);
   position: relative;
 }
 
 .newsprint-card:hover {
-  background-color: #f7eed9;
+  background-color: #f5ecd8;
 }
 
 .newsprint-inset {
@@ -105,6 +121,81 @@
 
 .border-newspaper-top-double {
   border-top: 4px double #1c1917;
+}
+
+/* Rubber Stamp Verdict Badges matching authentic distressed ink */
+.rubber-stamp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Special Elite', 'Courier Prime', monospace;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 2px 7px;
+  border: 2px solid currentColor;
+  border-radius: 2px;
+  transform: rotate(-3deg);
+  mask-image: radial-gradient(circle at 50% 50%, black 85%, transparent 100%);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, black 85%, transparent 100%);
+  white-space: nowrap;
+}
+
+.rubber-stamp-false {
+  color: #991b1b;
+  border-color: #991b1b;
+  background-color: rgba(254, 242, 242, 0.8);
+  box-shadow: 1px 1px 0px rgba(153, 27, 27, 0.3);
+}
+
+.rubber-stamp-true {
+  color: #166534;
+  border-color: #166534;
+  background-color: rgba(240, 253, 244, 0.8);
+  box-shadow: 1px 1px 0px rgba(22, 101, 52, 0.3);
+}
+
+.rubber-stamp-misleading {
+  color: #9a3412;
+  border-color: #9a3412;
+  background-color: rgba(255, 247, 237, 0.8);
+  box-shadow: 1px 1px 0px rgba(154, 52, 18, 0.3);
+}
+
+.rubber-stamp-unverifiable {
+  color: #57534e;
+  border-color: #57534e;
+  background-color: rgba(250, 250, 249, 0.8);
+  box-shadow: 1px 1px 0px rgba(87, 83, 78, 0.3);
+}
+
+/* Continuous ticker animation */
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.ticker-move {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: ticker 40s linear infinite;
+}
+
+.ticker-wrap:hover .ticker-move {
+  animation-play-state: paused;
+}
+
+/* Vintage drop caps */
+.drop-cap:first-letter {
+  float: left;
+  font-family: 'Old English Text MT', 'Playfair Display', Georgia, serif;
+  font-size: 3.4em;
+  line-height: 0.8;
+  padding-top: 4px;
+  padding-right: 8px;
+  padding-bottom: 2px;
+  color: #1c1917;
+  font-weight: bold;
 }
 
 /* Newspaper Stains & Distressed Edge Effects */
