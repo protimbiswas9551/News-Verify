@@ -1,5 +1,6 @@
 import React from 'react';
 import { Newspaper, Terminal, BookOpen, ShieldCheck, Radio } from 'lucide-react';
+import mastheadImage from '../assets/images/sahikya_masthead_1787667610971.jpg';
 
 interface NavbarProps {
   onOpenPythonModal: () => void;
@@ -12,22 +13,23 @@ export const Navbar: React.FC<NavbarProps> = ({
 }) => {
   return (
     <header className="w-full bg-[#fdfbf7] border-b-2 border-[#1c1917] shadow-sm">
-      {/* Top Medieval 72-Point Black Condensed Masthead Title */}
-      <div className="border-b-2 border-[#1c1917] py-3 sm:py-4 px-4 text-center bg-[#f7f1e1] relative overflow-hidden">
+      {/* Top Medieval Masthead Title Banner with Authentic Engraved Image */}
+      <div className="border-b-2 border-[#1c1917] py-2 sm:py-3 px-3 sm:px-4 text-center bg-[#f7f1e1] relative overflow-hidden">
         {/* Subtle vintage newspaper issue dateline bar above */}
-        <div className="max-w-6xl mx-auto flex items-center justify-between text-[10px] sm:text-xs font-typewriter text-[#57534e] border-b border-[#1c1917]/20 pb-1 mb-1 px-2 uppercase tracking-widest">
+        <div className="max-w-6xl mx-auto flex items-center justify-between text-[10px] sm:text-xs font-typewriter text-[#57534e] border-b border-[#1c1917]/20 pb-1 mb-2 px-2 uppercase tracking-widest">
           <span className="hidden sm:inline">VOL. CXXVIII • NO. 44,102</span>
           <span className="font-bold text-[#1c1917]">THE IMPARTIAL TRUTH & FACT-CHECKING GAZETTE</span>
           <span className="hidden sm:inline">LATE CITY EDITION • PRICE TWO CENTS</span>
         </div>
 
-        {/* Huge 72-Point Authentic Old English / Blackletter Masthead matching photo */}
-        <div className="flex items-center justify-center space-x-3 sm:space-x-8 py-1">
-          <span className="hidden sm:inline font-serif text-3xl lg:text-4xl text-[#78350f] select-none opacity-80">❧</span>
-          <h1 className="font-medieval text-6xl sm:text-7xl md:text-8xl lg:text-9xl tracking-tight text-[#1c1917] leading-none select-none drop-shadow-[2px_3px_0px_rgba(40,30,20,0.3)]">
-            Sahikya
-          </h1>
-          <span className="hidden sm:inline font-serif text-3xl lg:text-4xl text-[#78350f] select-none opacity-80">☙</span>
+        {/* Ornate Engraved Medieval Renaissance SahiKya Masthead Image */}
+        <div className="flex items-center justify-center py-1 max-w-4xl mx-auto">
+          <img
+            src={mastheadImage}
+            alt="SahiKya - Ornate Medieval Engraved Masthead"
+            referrerPolicy="no-referrer"
+            className="w-full max-w-2xl sm:max-w-3xl md:max-w-4xl max-h-32 sm:max-h-40 md:max-h-48 object-contain drop-shadow-[2px_3px_0px_rgba(40,30,20,0.35)] select-none transition-transform hover:scale-[1.01]"
+          />
         </div>
       </div>
 
