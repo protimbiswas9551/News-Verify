@@ -1,5 +1,6 @@
 import React from 'react';
 import { Terminal, BookOpen, Radio, Sparkles } from 'lucide-react';
+import { OrnateMastheadText } from './OrnateMastheadText';
 
 interface NavbarProps {
   onOpenPythonModal: () => void;
@@ -12,46 +13,64 @@ export const Navbar: React.FC<NavbarProps> = ({
 }) => {
   return (
     <header className="w-full text-[#1c1917] relative select-none">
-      {/* Top Broadsheet Masthead Block */}
-      <div className="pt-5 pb-3 px-4 sm:px-8 border-b-2 border-[#11100e] bg-[#faf5e8]">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          {/* Left dateline box for desktop */}
-          <div className="hidden lg:block w-56 shrink-0 text-left border-l-2 border-[#11100e] pl-3 py-1">
-            <div className="text-[11px] font-typewriter text-[#3a3530] uppercase tracking-widest leading-relaxed font-bold">
-              VOL. CXXVIII • NO. 44,102<br />
-              LATE CITY EDITION • TWO CENTS
+      {/* Ornate Textured Masthead Area matching the reference picture */}
+      <div className="pt-4 pb-3 px-3 sm:px-6 lg:px-8 border-b-2 border-[#2b241e] bg-parchment-banner relative shadow-sm">
+        {/* Subtle tea-stain edges and vignette overlays */}
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4 relative z-10">
+          
+          {/* Left Decorative Distressed Box: IMPARTIAL TRUTH & FACT-CHECKING ENGINE */}
+          <div className="hidden lg:flex items-center space-x-2 shrink-0">
+            {/* Left Fleuron Ornament */}
+            <div className="text-2xl text-[#2b241e] font-serif select-none px-1">
+              ❦
+            </div>
+            <div className="w-56 xl:w-64 distressed-box p-3 text-center">
+              <h2 className="font-headline font-black text-sm sm:text-base xl:text-lg text-[#1c1917] leading-tight tracking-wider uppercase">
+                IMPARTIAL TRUTH &amp; FACT-CHECKING ENGINE
+              </h2>
             </div>
           </div>
 
-          {/* Central Authentic Masthead */}
-          <div className="flex-1 text-center px-2">
-            <h1 className="font-medieval text-4xl sm:text-6xl md:text-7xl lg:text-8xl text-[#11100e] tracking-tight leading-none select-none py-1 drop-shadow-[1px_1px_0px_rgba(30,25,20,0.15)]">
-              The SAhiKya Gazette.
-            </h1>
-            <div className="mt-1.5 flex items-center justify-center space-x-3">
-              <span className="h-[1.5px] bg-[#11100e] flex-1 max-w-[100px] hidden sm:inline-block" />
-              <p className="font-headline font-extrabold text-xs sm:text-sm md:text-base text-[#11100e] uppercase tracking-[0.25em] sm:tracking-[0.32em] whitespace-nowrap">
-                IMPARTIAL TRUTH & FACT-CHECKING ENGINE
-              </p>
-              <span className="h-[1.5px] bg-[#11100e] flex-1 max-w-[100px] hidden sm:inline-block" />
+          {/* Central Ornate Woodcut Illuminated Masthead: "The SahiKya" */}
+          <div className="flex-1 text-center px-1 sm:px-4 w-full flex flex-col items-center justify-center">
+            {/* Mobile / Tablet Left Box if not desktop */}
+            <div className="lg:hidden w-full max-w-md mx-auto mb-2 distressed-box p-2 text-center">
+              <h2 className="font-headline font-black text-xs sm:text-sm text-[#1c1917] leading-tight tracking-wider uppercase">
+                IMPARTIAL TRUTH &amp; FACT-CHECKING ENGINE
+              </h2>
             </div>
-            <div className="text-center sm:text-right max-w-2xl mx-auto mt-0.5 sm:pr-4">
-              <span className="text-[10px] font-typewriter text-[#57534e] uppercase tracking-widest font-bold">
-                ESTABLISHED 1898
+
+            <OrnateMastheadText />
+
+            <div className="mt-1 flex items-center justify-center space-x-3 w-full max-w-lg">
+              <span className="h-[1.5px] bg-[#2b241e]/60 flex-1" />
+              <span className="text-[10px] sm:text-[11px] font-typewriter text-[#44382f] uppercase tracking-widest font-bold">
+                ESTABLISHED 1898 • LATE CITY EDITION
               </span>
+              <span className="h-[1.5px] bg-[#2b241e]/60 flex-1" />
             </div>
           </div>
 
-          {/* Right Weather Forecast Ear Box */}
-          <div className="w-full md:w-56 lg:w-64 shrink-0 border-2 border-[#11100e] bg-[#fbf6ea] p-2.5 text-center shadow-[2px_2px_0px_#11100e] relative">
-            <div className="text-[#11100e]">
-              <span className="font-headline font-bold text-xs uppercase tracking-wide block mb-0.5 border-b border-[#11100e]/20 pb-0.5">
-                Today's Forecast
-              </span>
-              <span className="font-body-news italic block text-[#1a1816] text-xs leading-snug pt-0.5">
-                &ldquo;100% chance I'm ignoring the weather report and wearing shorts in a blizzard.&rdquo;
-              </span>
+          {/* Right Weather Forecast Distressed Parchment Box */}
+          <div className="hidden md:flex items-center space-x-2 shrink-0">
+            <div className="w-60 xl:w-68 distressed-box p-3 text-center relative">
+              <div className="text-[#1c1917]">
+                <p className="font-headline font-bold text-xs sm:text-[13px] text-[#1c1917] leading-snug">
+                  Today's forecast: 100% chance I'm ignoring the weather report and wearing shorts in a blizzard.
+                </p>
+              </div>
             </div>
+            {/* Right Fleuron Ornament */}
+            <div className="text-2xl text-[#2b241e] font-serif select-none px-1">
+              ❧
+            </div>
+          </div>
+
+          {/* Mobile Weather Forecast Box */}
+          <div className="md:hidden w-full max-w-md mx-auto distressed-box p-2 text-center">
+            <p className="font-headline font-bold text-xs text-[#1c1917] leading-snug">
+              Today's forecast: 100% chance I'm ignoring the weather report and wearing shorts in a blizzard.
+            </p>
           </div>
         </div>
       </div>
@@ -65,7 +84,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               P
             </span>
             <span className="tracking-wider uppercase text-[11px]">
-              SAHIKYA <span className="bg-[#1c1917] text-white px-1 py-0.2 text-[9px] rounded-xs">s.e.a. 6</span> IMPARTIAL TRUTH & FACT-CHECKING ENGINE
+              THE SAHIKYA <span className="bg-[#1c1917] text-white px-1 py-0.2 text-[9px] rounded-xs">s.e.a. 6</span> IMPARTIAL TRUTH ENGINE
             </span>
           </div>
 
@@ -116,3 +135,4 @@ export const Navbar: React.FC<NavbarProps> = ({
     </header>
   );
 };
+
