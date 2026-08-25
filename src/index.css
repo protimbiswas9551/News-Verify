@@ -3,6 +3,11 @@
 @layer base {
   body {
     background-color: #ede4d1;
+    background-image: url('/vintage_newsprint_bg.jpg');
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     color: #11100e;
     font-family: 'Newsreader', Georgia, Cambria, "Times New Roman", Times, serif;
     min-height: 100vh;
