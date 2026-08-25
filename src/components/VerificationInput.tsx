@@ -69,30 +69,30 @@ export const VerificationInput: React.FC<VerificationInputProps> = ({
   return (
     <div className="space-y-6 text-[#11100e]">
       {/* Primary Headline and Subtitle in Antique Aged Parchment Paper Sheet */}
-      <div className="parchment-sheet-card p-5 sm:p-6 text-[#15110e] relative overflow-hidden">
+      <div className="parchment-sheet-card p-5 sm:p-6 text-[#15110e] relative overflow-hidden bg-[#fdfbf7]">
         {/* Subtle top dateline / seal banner */}
-        <div className="flex items-center justify-between border-b border-[#36291e]/40 pb-2 mb-3">
+        <div className="flex items-center justify-between border-b border-[#2e2319]/30 pb-2 mb-3">
           <div className="flex items-center space-x-2">
-            <span className="font-serif text-[#36291e] text-sm">❦</span>
-            <span className="font-typewriter text-[10px] sm:text-[11px] uppercase tracking-widest font-bold text-[#423326]">
+            <span className="font-serif text-[#2e2319] text-sm">❦</span>
+            <span className="font-typewriter text-[10px] sm:text-[11px] uppercase tracking-widest font-bold text-[#2e2319]">
               OFFICIAL BUREAU DISPATCH • INQUIRY DESK
             </span>
           </div>
-          <span className="font-typewriter text-[10px] text-[#594534] uppercase tracking-wider font-semibold hidden sm:inline">
+          <span className="font-typewriter text-[10px] text-[#423326] uppercase tracking-wider font-semibold hidden sm:inline">
             PRESS PROOF N° 849
           </span>
         </div>
 
-        <h2 className="font-headline font-black text-2xl sm:text-3xl md:text-4xl text-[#120e0b] tracking-tight uppercase leading-tight drop-shadow-[0.5px_0.5px_0px_rgba(255,255,255,0.7)]">
+        <h2 className="font-headline font-black text-2xl sm:text-3xl md:text-4xl text-[#0e0a08] tracking-tight uppercase leading-tight">
           NEWS VERIFICATION &amp; FACT-CHECKING: <br className="hidden sm:inline" />
           AN ENGINE FOR THE TRUTH
         </h2>
-        <p className="font-body-news italic text-sm sm:text-base text-[#281f18] mt-2 font-medium leading-relaxed">
+        <p className="font-body-news italic text-base sm:text-lg text-[#1c1510] mt-2 font-medium leading-relaxed">
           Cross-examine any news claim, rumor, article excerpt, and peer-checking grounding
         </p>
 
         {/* Bottom subtle rule with fleuron */}
-        <div className="mt-3 pt-2 border-t border-[#36291e]/25 flex items-center justify-between text-[10px] font-typewriter text-[#594534] uppercase tracking-wider">
+        <div className="mt-3 pt-2 border-t border-[#2e2319]/20 flex items-center justify-between text-[10px] font-typewriter text-[#423326] uppercase tracking-wider">
           <span>DEPARTMENT OF INVESTIGATION</span>
           <span className="font-serif">❧</span>
         </div>
