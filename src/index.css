@@ -12,7 +12,12 @@
   }
 }
 
-/* Authentic High-Legibility Gothic / Blackletter / Masthead Typography */
+/* Authentic High-Legibility Gothic & Roman Broadsheet Typography */
+.font-roman-masthead {
+  font-family: 'Bodoni Moda', 'Playfair Display', 'DM Serif Display', 'Cinzel', Georgia, 'Times New Roman', serif;
+  font-optical-sizing: auto;
+}
+
 .font-medieval {
   font-family: 'UnifrakturCook', 'Grenze Gotisch', 'UnifrakturMaguntia', 'MedievalSharp', 'Old English Text MT', Georgia, serif;
   font-weight: 700;
