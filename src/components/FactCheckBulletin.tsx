@@ -52,20 +52,20 @@ export const FactCheckBulletin: React.FC<FactCheckBulletinProps> = ({
   ];
 
   return (
-    <div className="border-2 border-[#1c1917] bg-[#fbf6ea] p-4 text-[#1c1917] shadow-[3px_3px_0px_#1c1917] relative">
+    <div className="border-2 border-[#11100e] bg-[#fbf6ea] p-4 text-[#11100e] shadow-[3px_3px_0px_#11100e] relative">
       {/* Bulletin Card Header */}
-      <div className="border-b-2 border-[#1c1917] pb-2 text-center">
-        <h2 className="font-headline font-black text-lg sm:text-xl uppercase tracking-wider text-[#1c1917]">
+      <div className="border-b-2 border-[#11100e] pb-2.5 text-center">
+        <h2 className="font-headline font-black text-lg sm:text-xl uppercase tracking-wider text-[#11100e]">
           FACT-CHECK BULLETIN
         </h2>
-        <div className="flex items-center justify-between text-[11px] font-typewriter font-bold uppercase text-[#44403c] mt-1 border-t border-[#1c1917]/20 pt-1">
+        <div className="flex items-center justify-between text-[11px] font-typewriter font-bold uppercase text-[#292524] mt-1.5 border-t border-[#11100e]/30 pt-1.5">
           <span>RECENT INVESTIGATIONS</span>
-          <span>(•)</span>
+          <span className="font-bold">(•)</span>
         </div>
       </div>
 
       {/* List of Investigations Cards */}
-      <div className="mt-3 space-y-3">
+      <div className="mt-3.5 space-y-3">
         {history.length > 0
           ? history.slice(0, 5).map((item, idx) => {
               const verdictUpper = item.verdict.toUpperCase();
@@ -79,13 +79,13 @@ export const FactCheckBulletin: React.FC<FactCheckBulletinProps> = ({
                   key={idx}
                   type="button"
                   onClick={() => onSelectResult(item)}
-                  className="w-full text-left bg-[#fdfaf3] border-1.5 border-[#1c1917] p-2.5 hover:bg-[#f6ebd7] transition relative group cursor-pointer block shadow-[1px_1px_0px_#1c1917]"
+                  className="w-full text-left bg-[#fdfbf7] border-2 border-[#11100e] p-3 hover:bg-[#f6ebd7] transition relative group cursor-pointer block shadow-[2px_2px_0px_#11100e]"
                 >
-                  <p className="font-body-news text-xs sm:text-[13px] font-semibold text-[#1c1917] leading-snug line-clamp-3 mb-2">
-                    &lsquo;{item.claim_analyzed}&rsquo;
+                  <p className="font-body-news text-xs sm:text-[13px] font-bold text-[#11100e] leading-snug line-clamp-3 mb-2">
+                    &ldquo;{item.claim_analyzed}&rdquo;
                   </p>
 
-                  <div className="flex items-center justify-between font-typewriter text-[10px] text-[#57534e] pt-1.5 border-t border-[#1c1917]/20">
+                  <div className="flex items-center justify-between font-typewriter text-[11px] text-[#44403c] font-medium pt-2 border-t border-[#11100e]/20">
                     <span>
                       {item.sources?.length || 4} citations •{' '}
                       {item.timestamp
@@ -94,7 +94,7 @@ export const FactCheckBulletin: React.FC<FactCheckBulletinProps> = ({
                     </span>
 
                     {/* Rubber Stamp */}
-                    <span className={`rubber-stamp ${stampClass} text-[10px] ml-1 shrink-0`}>
+                    <span className={`rubber-stamp ${stampClass} text-[11px] ml-1 shrink-0`}>
                       {verdictUpper}
                     </span>
                   </div>
@@ -110,17 +110,17 @@ export const FactCheckBulletin: React.FC<FactCheckBulletinProps> = ({
               return (
                 <div
                   key={idx}
-                  className="bg-[#fdfaf3] border border-[#1c1917] p-2.5 relative shadow-[1px_1px_0px_#1c1917]"
+                  className="bg-[#fdfbf7] border-2 border-[#11100e] p-3 relative shadow-[2px_2px_0px_#11100e]"
                 >
-                  <p className="font-body-news text-xs sm:text-[13px] font-semibold text-[#1c1917] leading-snug line-clamp-3 mb-2">
-                    &lsquo;{item.claim}&rsquo;
+                  <p className="font-body-news text-xs sm:text-[13px] font-bold text-[#11100e] leading-snug line-clamp-3 mb-2">
+                    &ldquo;{item.claim}&rdquo;
                   </p>
 
-                  <div className="flex items-center justify-between font-typewriter text-[10px] text-[#57534e] pt-1.5 border-t border-[#1c1917]/20">
+                  <div className="flex items-center justify-between font-typewriter text-[11px] text-[#44403c] font-medium pt-2 border-t border-[#11100e]/20">
                     <span>{item.citations} citations • {item.time}</span>
 
                     {/* Rubber Stamp */}
-                    <span className={`rubber-stamp ${stampClass} text-[10px] ml-1 shrink-0`}>
+                    <span className={`rubber-stamp ${stampClass} text-[11px] ml-1 shrink-0`}>
                       {item.verdict.toUpperCase()}
                     </span>
                   </div>

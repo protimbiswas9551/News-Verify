@@ -67,21 +67,21 @@ export const VerificationInput: React.FC<VerificationInputProps> = ({
   ];
 
   return (
-    <div className="space-y-6 text-[#1c1917]">
+    <div className="space-y-6 text-[#11100e]">
       {/* Primary Headline and Subtitle */}
       <div>
-        <h2 className="font-headline font-black text-2xl sm:text-3xl md:text-4xl text-[#1c1917] tracking-tight uppercase leading-tight">
+        <h2 className="font-headline font-black text-2xl sm:text-3xl md:text-4xl text-[#11100e] tracking-tight uppercase leading-tight">
           NEWS VERIFICATION & FACT-CHECKING: <br className="hidden sm:inline" />
           AN ENGINE FOR THE TRUTH
         </h2>
-        <p className="font-body-news italic text-sm sm:text-base text-[#44403c] mt-1">
+        <p className="font-body-news italic text-sm sm:text-base text-[#292524] mt-1.5 font-medium">
           Cross-examine any news claim, rumor, article excerpt, and peer-checking grounding
         </p>
       </div>
 
       {/* Main Input Form with Ledger Grid & Side Options */}
-      <form onSubmit={handleSubmit} className="space-y-3">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-3.5 items-stretch">
+      <form onSubmit={handleSubmit} className="space-y-3.5">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-stretch">
           {/* Ruled Ledger Grid Input Area */}
           <div className="md:col-span-8 relative">
             <textarea
@@ -95,7 +95,7 @@ export const VerificationInput: React.FC<VerificationInputProps> = ({
                 }
               }}
               placeholder='Enter or paste any headline, rumor or empirical assertion to verify (e.g. "NASA detected water vapor on exoplanet zone")...'
-              className="w-full h-full min-h-[140px] p-4 bg-ledger-grid border-2 border-[#1c1917] font-body-news text-base text-[#1c1917] placeholder-[#78716c] focus:outline-none focus:bg-[#fffff8] resize-none leading-relaxed shadow-[2px_2px_0px_#1c1917]"
+              className="w-full h-full min-h-[145px] p-4 bg-ledger-grid border-2 border-[#11100e] font-body-news text-base text-[#11100e] placeholder-[#57534e] focus:outline-none focus:bg-[#fffffb] resize-none leading-relaxed shadow-[3px_3px_0px_#11100e] font-medium"
             />
           </div>
 
@@ -103,25 +103,25 @@ export const VerificationInput: React.FC<VerificationInputProps> = ({
           <div className="md:col-span-4 flex flex-col justify-between gap-2.5">
             <div
               onClick={() => setShowAdvanced(!showAdvanced)}
-              className="bg-[#f6eee0] border-2 border-[#1c1917] p-2.5 flex flex-col items-center justify-between text-center cursor-pointer hover:bg-[#efe4cf] transition shadow-[2px_2px_0px_#1c1917] h-full group"
+              className="bg-[#faf4e6] border-2 border-[#11100e] p-3 flex flex-col items-center justify-between text-center cursor-pointer hover:bg-[#f3e9d3] transition shadow-[3px_3px_0px_#11100e] h-full group"
             >
-              <div className="w-full pb-1 border-b border-[#1c1917]">
-                <span className="font-headline font-bold text-xs uppercase tracking-wider text-[#1c1917]">
+              <div className="w-full pb-1 border-b-2 border-[#11100e]">
+                <span className="font-headline font-black text-xs uppercase tracking-wider text-[#11100e]">
                   INVESTIGATION OPTIONS
                 </span>
               </div>
 
               {/* Engraving Globe Icon */}
               <div className="my-2 relative flex items-center justify-center">
-                <div className="w-14 h-14 rounded-full border-2 border-[#1c1917] bg-[#fcf8ee] flex items-center justify-center shadow-inner relative group-hover:scale-105 transition">
-                  <Globe className="w-8 h-8 text-[#44403c] stroke-[1.4]" />
-                  <div className="absolute -bottom-0.5 -right-0.5 p-1 bg-[#1c1917] text-[#fdfbf7] rounded-full">
+                <div className="w-14 h-14 rounded-full border-2 border-[#11100e] bg-[#fdfbf7] flex items-center justify-center shadow-inner relative group-hover:scale-105 transition">
+                  <Globe className="w-8 h-8 text-[#11100e] stroke-[1.6]" />
+                  <div className="absolute -bottom-0.5 -right-0.5 p-1 bg-[#11100e] text-[#fdfbf7] rounded-full">
                     <Search className="w-3 h-3" />
                   </div>
                 </div>
               </div>
 
-              <span className="font-typewriter text-[10px] text-[#57534e] group-hover:text-[#1c1917] font-bold">
+              <span className="font-typewriter text-[11px] text-[#11100e] font-bold tracking-wide">
                 {showAdvanced ? '[-] Close Settings' : '[+] Wire Verification'}
               </span>
             </div>
@@ -131,18 +131,18 @@ export const VerificationInput: React.FC<VerificationInputProps> = ({
         {/* Verification Action Bar: Status on Left + RUN VERIFICATION Button on Right */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-1">
           {/* Left: Gemini & Grounding indicator */}
-          <div className="flex items-center space-x-2 font-typewriter text-xs text-[#44403c]">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#1c1917] inline-block" />
-            <span className="font-bold text-[#1c1917]">Gemini 3.7 Flash</span>
-            <span className="text-[#a8a29e]">•</span>
-            <span>Live Google Search Grounding</span>
+          <div className="flex items-center space-x-2 font-typewriter text-xs text-[#11100e]">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#11100e] inline-block" />
+            <span className="font-bold text-[#11100e]">Gemini 3.7 Flash</span>
+            <span className="text-[#78716c]">•</span>
+            <span className="font-medium text-[#292524]">Live Google Search Grounding</span>
           </div>
 
           {/* Right: Bold Heavy RUN VERIFICATION Button */}
           <button
             type="submit"
             disabled={isLoading || (!inputText.trim() && !inputUrl.trim())}
-            className="w-full sm:w-auto px-6 py-2.5 bg-[#fdfbf7] hover:bg-[#1c1917] text-[#1c1917] hover:text-[#fdfbf7] border-2 border-[#1c1917] font-headline font-black text-sm uppercase tracking-widest transition shadow-[3px_3px_0px_#1c1917] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#1c1917] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed text-center"
+            className="w-full sm:w-auto px-7 py-3 bg-[#faf5e8] hover:bg-[#11100e] text-[#11100e] hover:text-[#fdfbf7] border-2 border-[#11100e] font-headline font-black text-sm uppercase tracking-widest transition shadow-[3px_3px_0px_#11100e] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#11100e] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed text-center"
           >
             {isLoading ? 'ANALYZING WIRE DISPATCHES...' : 'RUN VERIFICATION'}
           </button>

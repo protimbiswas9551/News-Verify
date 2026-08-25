@@ -13,41 +13,43 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <header className="w-full text-[#1c1917] relative select-none">
       {/* Top Broadsheet Masthead Block */}
-      <div className="pt-4 pb-2 px-4 sm:px-8 border-b-2 border-[#1c1917] relative">
+      <div className="pt-5 pb-3 px-4 sm:px-8 border-b-2 border-[#11100e] bg-[#faf5e8]">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          {/* Empty spacer on left for desktop balance (or subtle issue tag) */}
-          <div className="hidden lg:block w-52 shrink-0 text-left">
-            <div className="text-[10px] font-typewriter text-[#78716c] uppercase tracking-widest leading-tight">
+          {/* Left dateline box for desktop */}
+          <div className="hidden lg:block w-56 shrink-0 text-left border-l-2 border-[#11100e] pl-3 py-1">
+            <div className="text-[11px] font-typewriter text-[#3a3530] uppercase tracking-widest leading-relaxed font-bold">
               VOL. CXXVIII • NO. 44,102<br />
               LATE CITY EDITION • TWO CENTS
             </div>
           </div>
 
-          {/* Central Authentic Gothic Masthead */}
+          {/* Central Authentic Masthead */}
           <div className="flex-1 text-center px-2">
-            <h1 className="font-medieval text-5xl sm:text-7xl md:text-8xl lg:text-9xl text-[#1c1917] tracking-tight leading-none drop-shadow-[1px_2px_0px_rgba(40,30,20,0.25)] select-none py-1">
+            <h1 className="font-medieval text-4xl sm:text-6xl md:text-7xl lg:text-8xl text-[#11100e] tracking-tight leading-none select-none py-1 drop-shadow-[1px_1px_0px_rgba(30,25,20,0.15)]">
               The SAhiKya Gazette.
             </h1>
-            <div className="mt-1 flex items-center justify-center space-x-2">
-              <span className="h-px bg-[#1c1917]/40 flex-1 max-w-[80px] hidden sm:inline-block" />
-              <p className="font-headline font-black text-xs sm:text-sm md:text-base lg:text-lg text-[#1c1917] uppercase tracking-[0.25em] sm:tracking-[0.35em] whitespace-nowrap">
+            <div className="mt-1.5 flex items-center justify-center space-x-3">
+              <span className="h-[1.5px] bg-[#11100e] flex-1 max-w-[100px] hidden sm:inline-block" />
+              <p className="font-headline font-extrabold text-xs sm:text-sm md:text-base text-[#11100e] uppercase tracking-[0.25em] sm:tracking-[0.32em] whitespace-nowrap">
                 IMPARTIAL TRUTH & FACT-CHECKING ENGINE
               </p>
-              <span className="h-px bg-[#1c1917]/40 flex-1 max-w-[80px] hidden sm:inline-block" />
+              <span className="h-[1.5px] bg-[#11100e] flex-1 max-w-[100px] hidden sm:inline-block" />
             </div>
-            <div className="text-right max-w-2xl mx-auto -mt-1 pr-2">
-              <span className="text-[9px] sm:text-[10px] font-typewriter text-[#78716c] uppercase tracking-widest font-semibold">
+            <div className="text-center sm:text-right max-w-2xl mx-auto mt-0.5 sm:pr-4">
+              <span className="text-[10px] font-typewriter text-[#57534e] uppercase tracking-widest font-bold">
                 ESTABLISHED 1898
               </span>
             </div>
           </div>
 
-          {/* Right Weather Forecast Distressed Ear Box */}
-          <div className="w-full md:w-56 lg:w-60 shrink-0 border-2 border-[#1c1917] bg-[#fbf6ea]/95 p-2.5 text-center shadow-[2px_2px_0px_#1c1917] relative">
-            <div className="font-headline text-xs sm:text-[13px] text-[#1c1917] leading-snug">
-              <span className="font-bold block mb-0.5">Today's forecast:</span>
-              <span className="italic block text-[#292524] text-[11px] sm:text-xs">
-                100% chance I'm ignoring the weather report and wearing shorts in a blizzard.
+          {/* Right Weather Forecast Ear Box */}
+          <div className="w-full md:w-56 lg:w-64 shrink-0 border-2 border-[#11100e] bg-[#fbf6ea] p-2.5 text-center shadow-[2px_2px_0px_#11100e] relative">
+            <div className="text-[#11100e]">
+              <span className="font-headline font-bold text-xs uppercase tracking-wide block mb-0.5 border-b border-[#11100e]/20 pb-0.5">
+                Today's Forecast
+              </span>
+              <span className="font-body-news italic block text-[#1a1816] text-xs leading-snug pt-0.5">
+                &ldquo;100% chance I'm ignoring the weather report and wearing shorts in a blizzard.&rdquo;
               </span>
             </div>
           </div>
