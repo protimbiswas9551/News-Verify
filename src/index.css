@@ -12,7 +12,14 @@
   }
 }
 
-/* Authentic High-Legibility Gothic & Roman Broadsheet Typography */
+/* Authentic High-Legibility Gothic & Old English Broadsheet Typography matching user image */
+.font-sahikya-masthead {
+  font-family: 'Cloister Black', 'Old English Text MT', 'Old English Text', 'Chomsky', 'Engravers Old English', 'UnifrakturCook', 'UnifrakturMaguntia', 'Grenze Gotisch', Georgia, serif;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+}
+
 .font-roman-masthead {
   font-family: 'Bodoni Moda', 'Playfair Display', 'DM Serif Display', 'Cinzel', Georgia, 'Times New Roman', serif;
   font-optical-sizing: auto;

@@ -2,41 +2,40 @@ import React from 'react';
 
 export const OrnateMastheadText: React.FC = () => {
   return (
-    <div className="relative flex flex-col items-center justify-center select-none py-1.5 w-full max-w-2xl mx-auto">
-      {/* Decorative Top Accent Rule with Roman Fleurons */}
-      <div className="flex items-center justify-center space-x-3 w-full mb-1 opacity-80">
+    <div className="relative flex flex-col items-center justify-center select-none py-1 w-full max-w-3xl mx-auto">
+      {/* Decorative Top Accent Rule with Fleurons */}
+      <div className="flex items-center justify-center space-x-3 w-full mb-1 opacity-70">
         <span className="h-px bg-gradient-to-r from-transparent via-[#2b241e] to-[#2b241e] flex-1 max-w-[120px]" />
         <span className="text-xs text-[#2b241e] font-serif">✦ ❖ ✦</span>
         <span className="h-px bg-gradient-to-l from-transparent via-[#2b241e] to-[#2b241e] flex-1 max-w-[120px]" />
       </div>
 
-      {/* Main Title: The SahiKya in Majestic Roman Broadsheet Typography */}
-      <div className="relative flex items-baseline justify-center tracking-tight">
-        {/* Subtle Engraved Shadow/Relief layer */}
+      {/* Main Title: The SahiKya matching the exact Old English / Cloister Black blackletter in user picture */}
+      <div className="relative flex items-center justify-center tracking-normal px-2">
         <h1 
-          className="font-roman-masthead text-5xl sm:text-7xl md:text-8xl lg:text-[5.5rem] xl:text-[6rem] text-[#1a1410] tracking-[-0.02em] leading-none text-center whitespace-nowrap font-black drop-shadow-[2px_2px_0px_rgba(215,190,150,0.8)]"
+          className="font-sahikya-masthead text-5xl sm:text-7xl md:text-8xl lg:text-[6rem] xl:text-[6.5rem] text-[#110e0c] leading-none text-center whitespace-nowrap drop-shadow-[1px_1px_0px_rgba(230,210,180,0.6)]"
           style={{
-            fontFamily: "'Bodoni Moda', 'Playfair Display', 'Cinzel', Georgia, 'Times New Roman', serif",
+            fontFamily: "'Cloister Black', 'Old English Text MT', 'Old English Text', 'Chomsky', 'Engravers Old English', 'UnifrakturCook', 'Grenze Gotisch', Georgia, serif",
             textRendering: 'optimizeLegibility',
           }}
         >
-          <span className="font-normal italic text-3xl sm:text-5xl md:text-6xl text-[#3d3228] mr-2 sm:mr-3 font-serif">
+          <span className="text-[#3d3228] text-4xl sm:text-6xl md:text-7xl lg:text-[4.5rem] xl:text-[5rem] mr-2 sm:mr-3 font-normal align-baseline inline-block">
             The
           </span>
-          <span className="text-[#15110e] font-black tracking-[-0.01em]">
+          <span className="text-[#110e0c] font-bold tracking-tight inline-block">
             SahiKya
           </span>
         </h1>
       </div>
 
-      {/* Underline Flourish with Double Stroke and Diamond Center */}
-      <div className="flex items-center justify-center space-x-2 w-full mt-1.5 opacity-90">
+      {/* Underline Flourish */}
+      <div className="flex items-center justify-center space-x-2 w-full mt-1 opacity-80">
         <div className="h-[2px] bg-[#1a1410] flex-1 max-w-[140px]" />
-        <div className="w-2 h-2 rotate-45 border border-[#1a1410] bg-[#2b241e] shrink-0" />
-        <span className="text-[11px] sm:text-xs font-serif italic text-[#382d24] px-1 font-semibold tracking-wider">
-          Veritas Inquirendo
+        <div className="w-1.5 h-1.5 rotate-45 bg-[#2b241e] shrink-0" />
+        <span className="text-[10px] sm:text-[11px] font-typewriter uppercase text-[#44382f] px-1 font-bold tracking-widest">
+          Est. 1898 • Veritas Inquirendo
         </span>
-        <div className="w-2 h-2 rotate-45 border border-[#1a1410] bg-[#2b241e] shrink-0" />
+        <div className="w-1.5 h-1.5 rotate-45 bg-[#2b241e] shrink-0" />
         <div className="h-[2px] bg-[#1a1410] flex-1 max-w-[140px]" />
       </div>
     </div>
