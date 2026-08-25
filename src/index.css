@@ -48,25 +48,26 @@
 /* Authentic Aged Parchment Paper Sheet Card matching user reference */
 .parchment-sheet-card {
   position: relative;
-  background-color: #fdfbf7;
+  background-color: #f2e6cf;
   background-image: 
-    radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.95) 0%, rgba(254, 251, 243, 0.94) 70%, rgba(246, 237, 218, 0.92) 100%),
+    radial-gradient(ellipse at 50% 50%, rgba(253, 248, 238, 0.65) 0%, rgba(240, 226, 196, 0.75) 60%, rgba(210, 180, 135, 0.9) 100%),
     url('/parchment_paper_card.jpg');
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
   border: 2px solid #2e2319;
   border-radius: 4px;
   box-shadow: 
-    0 10px 25px -5px rgba(45, 30, 15, 0.2),
+    0 10px 25px -5px rgba(45, 30, 15, 0.28),
     3px 3px 0px #241c14,
-    inset 0 0 20px rgba(180, 150, 105, 0.15);
+    inset 0 0 28px rgba(115, 75, 30, 0.28);
 }
 
 .parchment-sheet-card::before {
   content: '';
   position: absolute;
   inset: 4px;
-  border: 1px dashed rgba(60, 45, 30, 0.3);
+  border: 1px dashed rgba(60, 45, 30, 0.45);
   pointer-events: none;
   border-radius: 2px;
 }

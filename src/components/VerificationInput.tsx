@@ -69,7 +69,7 @@ export const VerificationInput: React.FC<VerificationInputProps> = ({
   return (
     <div className="space-y-6 text-[#11100e]">
       {/* Primary Headline and Subtitle in Antique Aged Parchment Paper Sheet */}
-      <div className="parchment-sheet-card p-5 sm:p-6 text-[#15110e] relative overflow-hidden bg-[#fdfbf7]">
+      <div className="parchment-sheet-card p-5 sm:p-6 text-[#15110e] relative overflow-hidden">
         {/* Subtle top dateline / seal banner */}
         <div className="flex items-center justify-between border-b border-[#2e2319]/30 pb-2 mb-3">
           <div className="flex items-center space-x-2">
