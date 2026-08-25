@@ -34,34 +34,42 @@ export const VerificationInput: React.FC<VerificationInputProps> = ({
     setInputText(claimText);
   };
 
-  // 4 Curated News Briefs matching the reference image
+  // 4 Curated News Briefs matching the reference image with newspaper column datelines
   const latestBriefs = [
     {
-      category: 'SCIENCE',
+      slug: 'DISPATCH № 01',
+      dateline: 'GENEVA WIRE',
+      category: 'SCIENCE & COSMOS',
       icon: Atom,
-      title: 'NASA James Webb space detected atmosphere...',
-      quote: "‘NASA's James Webb Space Telescope confirmed signatures of water vapor...’",
+      title: 'NASA James Webb Telescope Detects Atmospheric Biosignatures',
+      quote: "‘Spectroscopic telemetry confirmed signatures of atmospheric water vapor and methane on habitable zone exoplanet...’",
       claim: 'NASA James Webb Space Telescope detected atmospheric water vapor and potential biosignatures on exoplanet K2-18b.',
     },
     {
-      category: 'ECONOMY',
+      slug: 'WIRE № 02',
+      dateline: 'NEW YORK DESK',
+      category: 'FINANCIAL GAZETTE',
       icon: CircleDollarSign,
-      title: 'The Federal Reserve announced emergency in...',
-      quote: "‘The Federal Reserve announced an emergency reality rate cut exception...’",
+      title: 'Federal Reserve Convenes Emergency Session on Prime Rates',
+      quote: "‘Unannounced weekend bulletin claims central banking authority enacted surprise emergency reality rate exemptions...’",
       claim: 'The Federal Reserve announced an emergency policy rate cut exception during unannounced weekend session.',
     },
     {
-      category: 'HEALTH',
+      slug: 'CHRONICLE № 03',
+      dateline: 'MEDICAL RECORD',
+      category: 'HEALTH & HYGIENE',
       icon: HeartPulse,
-      title: 'Drinking raw celery juice every morning permanently...',
-      quote: "‘Drinking raw celery juice every morning permanently cures all autoimmune...’",
+      title: 'Miracle Celery Protocol Purports Permanent Disease Cure',
+      quote: "‘Sensational health broadsheets assert raw unpasteurized celery elixir permanently cures all autoimmune syndromes...’",
       claim: 'Drinking raw celery juice every morning permanently cures all autoimmune conditions and eliminates disease.',
     },
     {
-      category: 'POLITICS',
+      slug: 'TELEGRAPH № 04',
+      dateline: 'GLOBAL DIPLOMACY',
+      category: 'POLITICAL DESK',
       icon: Landmark,
-      title: 'OpenAI and Microsoft agreed a pact to deploy...',
-      quote: "‘United Nations passed a binding resolution granting artificial intelligence...’",
+      title: 'United Nations Drafts Sovereignty Charter for Machine Intelligence',
+      quote: "‘Diplomatic rumors report international council convened to grant autonomous sovereign statehood to neural systems...’",
       claim: 'United Nations passed a binding resolution granting artificial intelligence systems full sovereign autonomy.',
     },
   ];
@@ -228,11 +236,19 @@ export const VerificationInput: React.FC<VerificationInputProps> = ({
 
       {/* Latest Briefs - 4 Column Broadsheet Grid */}
       <div className="pt-4 border-t-2 border-[#1c1917]">
-        <h3 className="font-headline font-bold text-lg sm:text-xl text-[#1c1917] mb-3">
-          Latest Briefs
-        </h3>
+        <div className="flex flex-wrap items-baseline justify-between gap-2 mb-3">
+          <div className="flex items-center space-x-2">
+            <span className="font-serif text-[#1c1917] text-base">❦</span>
+            <h3 className="font-headline font-black text-lg sm:text-xl text-[#1c1917] uppercase tracking-tight">
+              LATEST WIRE BRIEFS &amp; SAMPLE DISPATCHES
+            </h3>
+          </div>
+          <span className="font-typewriter text-[10px] text-[#594534] uppercase tracking-wider font-semibold">
+            CLICK ANY COLUMN TO LOAD INTO DESK
+          </span>
+        </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-y-2 border-[#1c1917] divide-y sm:divide-y-0 sm:divide-x-2 divide-[#1c1917] bg-[#fbf6ea]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-2 border-[#1c1917] divide-y sm:divide-y-0 sm:divide-x-2 divide-[#1c1917] bg-[#fbf6ea] shadow-[3px_3px_0px_#1c1917]">
           {latestBriefs.map((brief, idx) => {
             const IconComponent = brief.icon;
             return (
@@ -240,29 +256,50 @@ export const VerificationInput: React.FC<VerificationInputProps> = ({
                 key={idx}
                 type="button"
                 onClick={() => handleSelectBrief(brief.claim)}
-                className="p-3 text-left hover:bg-[#f3e7d1] transition group cursor-pointer flex flex-col justify-between"
+                className="p-3.5 text-left bg-[#fbf6eb] hover:bg-[#f3e6cf] transition-all duration-200 group cursor-pointer flex flex-col justify-between relative overflow-hidden"
               >
+                {/* Vintage Newspaper Column Header */}
                 <div>
-                  {/* Category with Icon */}
-                  <div className="flex items-center justify-between border-b border-[#1c1917]/20 pb-1 mb-2">
-                    <span className="font-headline font-black text-xs sm:text-sm uppercase tracking-wider text-[#1c1917]">
-                      {brief.category}
-                    </span>
-                    <IconComponent className="w-4 h-4 text-[#57534e] group-hover:text-[#1c1917] transition" />
+                  {/* Slug and Icon */}
+                  <div className="flex items-center justify-between border-b-2 border-[#1c1917] pb-1.5 mb-2">
+                    <div className="flex flex-col">
+                      <span className="font-typewriter text-[9px] uppercase tracking-widest font-bold text-[#5c4632]">
+                        {brief.slug}
+                      </span>
+                      <span className="font-headline font-black text-[11px] sm:text-xs uppercase tracking-wider text-[#1c1917]">
+                        {brief.category}
+                      </span>
+                    </div>
+                    <div className="p-1 rounded-sm bg-[#ede2cc] border border-[#1c1917]/40 group-hover:bg-[#1c1917] group-hover:text-[#fbf6ea] transition-colors">
+                      <IconComponent className="w-3.5 h-3.5" />
+                    </div>
                   </div>
 
-                  {/* Title & Quote */}
-                  <h4 className="font-headline font-bold text-xs text-[#1c1917] leading-snug line-clamp-2 mb-1">
-                    {brief.title}
-                  </h4>
-                  <p className="font-body-news italic text-[11px] sm:text-xs text-[#57534e] leading-relaxed line-clamp-3">
-                    {brief.quote}
-                  </p>
+                  {/* Dateline & Headline */}
+                  <div className="mb-2">
+                    <span className="font-typewriter text-[9px] uppercase tracking-wider font-bold text-[#6e1e18] mr-1.5">
+                      [{brief.dateline}] —
+                    </span>
+                    <h4 className="font-headline font-bold text-xs sm:text-[13px] text-[#11100e] leading-snug group-hover:text-[#6e1e18] group-hover:underline decoration-1 underline-offset-2 transition-colors mt-0.5">
+                      {brief.title}
+                    </h4>
+                  </div>
+
+                  {/* Newspaper Excerpt Box */}
+                  <div className="bg-[#f4ebd7]/80 p-2 border-l-2 border-[#3d2e20]/60 rounded-xs my-2">
+                    <p className="font-body-news italic text-[11px] text-[#2c231a] leading-relaxed line-clamp-3">
+                      {brief.quote}
+                    </p>
+                  </div>
                 </div>
 
-                <div className="mt-3 pt-1 border-t border-[#1c1917]/20 flex items-center justify-between text-[10px] font-typewriter text-[#78716c] group-hover:text-[#1c1917]">
-                  <span>Click to Load</span>
-                  <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition" />
+                {/* Newspaper Footer Action */}
+                <div className="mt-2 pt-1.5 border-t border-[#1c1917]/25 flex items-center justify-between text-[10px] font-typewriter text-[#5c4632] group-hover:text-[#1c1917] font-semibold">
+                  <span className="flex items-center space-x-1">
+                    <span>☞</span>
+                    <span className="uppercase tracking-wider">LOAD WIRE PROOF</span>
+                  </span>
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform text-[#6e1e18]" />
                 </div>
               </button>
             );
